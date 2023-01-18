@@ -30,7 +30,12 @@ public class BlocDInstructions extends ArbreAbstrait {
     
     @Override
     public String toMIPS() {
-        throw new UnsupportedOperationException("fonction toMips non définie ") ;
+        //throw new UnsupportedOperationException("fonction toMips non définie ") ;
+        StringBuilder sb = new StringBuilder();
+        for (Instruction i : programme) {
+            sb.append(i.toMIPS());
+        }
+        return sb.toString();
     }
 
     @Override
