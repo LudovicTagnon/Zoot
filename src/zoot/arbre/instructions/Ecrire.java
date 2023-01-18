@@ -24,6 +24,7 @@ public class Ecrire extends Instruction {
         // Evaluate the expression
         mips += exp.toMIPS() ;
         // Print the result to the console
+        mips += "move $a0, $v0\n" ;
         mips += "li $v0, 1\n" ;
         mips += "syscall\n" ;
         mips += "li $v0, 4\n" ;
