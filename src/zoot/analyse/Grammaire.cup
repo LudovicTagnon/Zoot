@@ -57,13 +57,15 @@ parser code {:
 /* Terminals (tokens returned by the scanner).  */
 
 terminal Symbol    DEBUT, FIN, POINTVIRGULE, ECRIRE ;
-terminal String    CSTENTIERE ;
+terminal String    CSTENTIERE, BOOLEEN, ENTIER, ID;
    
 /* Non terminals used in the grammar section.  */
 
 non terminal ArbreAbstrait PROG, LINST ;
 non terminal Instruction INST ;
 non terminal Expression EXP ;
+non terminal Variable VAR ;
+non terminal Type TYPE ;
 
 /* ----------------------------Grammar Section-------------------- */
  
@@ -89,4 +91,17 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
     
 EXP    ::=     CSTENTIERE:c
                 {: RESULT = new ConstanteEntiere(c, cleft + 1) ; :}
+                ;
+
+/* A Vérifier avec le prochain CM*/
+
+TYPE    ::=     BOOLEEN
+                {:/*RESULT = new Booleen() ; ?*/:}
+        |
+                ENTIER
+                {:/*RESULT = new Entier() ; ?*/:}
+                ;
+
+VAR     ::=     TYPE: t ID:id POINTVIRGULE
+                {: /*RESULT = new Variable(t, id, idleft + 1) ; ?*/ :}
                 ;
