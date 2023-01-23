@@ -20,14 +20,14 @@ public class Ecrire extends Instruction {
     public String toMIPS() {
         //throw new UnsupportedOperationException("fonction toMips non définie ") ;
 
-        String mips = "" ;
+        String mips = "\n" ;
         // Evaluate the expression
         mips += exp.toMIPS() ;
         // Print the result to the console
-        mips += "move $a0, $v0\n" ;
-        mips += "li $v0, 1\n" ;
-        mips += "syscall\n" ;
-        mips += "li $v0, 4\n" ;
+        mips += "#Déplace la valeur à afficher dans $a0\nmove $a0, $v0\n" ;
+        mips += "#Numéro du read\nli $v0, 1\n" ;
+        mips += "#Appel système\nsyscall\n" ;
+        mips += "#Saut de ligne\nli $v0, 4\n" ;
         mips += "la $a0, newline\n" ;
         mips += "syscall\n" ;
         return mips ;
