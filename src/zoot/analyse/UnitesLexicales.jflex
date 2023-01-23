@@ -34,9 +34,16 @@ import zoot.exceptions.AnalyseLexicaleException;
 csteE = [0-9]+
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
+variable = [a-zA-Z0-9]+ //Vérifier si la regex correspond à l'enoncé
 
 %%
-"//".*                                    { /* DO NOTHING */ }
+"//".*                          { /* DO NOTHING */ }
+
+"booleen"                       { /* DO NOTHING */ }
+
+"entier"                        { /* DO NOTHING */ }
+
+//faire variable
 
 "debut"                { return symbol(CodesLexicaux.DEBUT); }
 "fin"              	   { return symbol(CodesLexicaux.FIN); }
