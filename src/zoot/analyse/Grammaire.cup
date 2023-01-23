@@ -61,11 +61,9 @@ terminal String    CSTENTIERE, BOOLEEN, ENTIER, ID;
    
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG, LINST ;
+non terminal ArbreAbstrait PROG, LINST, VAR, TYPE ; //VAR et TYPE à vérifier
 non terminal Instruction INST ;
 non terminal Expression EXP ;
-non terminal Variable VAR ;
-non terminal Type TYPE ;
 
 /* ----------------------------Grammar Section-------------------- */
  
