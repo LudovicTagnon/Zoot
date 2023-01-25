@@ -61,9 +61,10 @@ terminal String    CSTENTIERE, BOOLEEN, ENTIER, ID;
    
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG, LINST, VAR, TYPE ; //VAR et TYPE à vérifier
+non terminal ArbreAbstrait PROG, LINST, VAR ; //VAR à vérifier
 non terminal Instruction INST ;
 non terminal Expression EXP ;
+non terminal String TYPE ;
 
 /* ----------------------------Grammar Section-------------------- */
  
@@ -94,12 +95,12 @@ EXP    ::=     CSTENTIERE:c
 /* A Vérifier avec le prochain CM*/
 
 TYPE    ::=     BOOLEEN
-                {:/*RESULT = new Booleen() ; ?*/:}
+                {: RESULT = "booleen" ; :}
         |
                 ENTIER
-                {:/*RESULT = new Entier() ; ?*/:}
+                {: RESULT = "entier" ; :}
                 ;
 
 VAR     ::=     TYPE: t ID:id POINTVIRGULE
-                {: /*RESULT = new Variable(t, id, idleft + 1) ; ?*/ :}
+                {: TDS.getInstance().ajouter(id, new Symbole(t)) ; :}
                 ;

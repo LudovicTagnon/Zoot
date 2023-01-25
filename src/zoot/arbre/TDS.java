@@ -5,7 +5,6 @@ import java.util.HashMap;
 public class TDS {
 
     private static TDS instance = new TDS();
-
     private HashMap<String, Symbole> table ;
 
     private TDS() {
