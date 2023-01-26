@@ -39,9 +39,11 @@ variable = [a-zA-Z0-9]+ //Vérifier si la regex correspond à l'enoncé
 %%
 "//".*                          { /* DO NOTHING */ }
 
-"booleen"                       { /* DO NOTHING */ }
+"booleen"                       { return symbol(CodesLexicaux.BOOLEEN); }
 
-"entier"                        { /* DO NOTHING */ }
+"entier"                        { return symbol(CodesLexicaux.ENTIER); }
+
+"variables"                     { return symbol(CodesLexicaux.VARIABLES); }
 
 //faire variable
 
@@ -51,6 +53,8 @@ variable = [a-zA-Z0-9]+ //Vérifier si la regex correspond à l'enoncé
 "ecrire"               { return symbol(CodesLexicaux.ECRIRE); }
 
 ";"                    { return symbol(CodesLexicaux.POINTVIRGULE); }
+
+{variable}             { return symbol(CodesLexicaux.ID, yytext()); }
 
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
 

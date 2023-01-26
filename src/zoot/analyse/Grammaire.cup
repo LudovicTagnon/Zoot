@@ -56,7 +56,7 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    DEBUT, FIN, POINTVIRGULE, ECRIRE ;
+terminal Symbol    DEBUT, FIN, POINTVIRGULE, ECRIRE, VARIABLES ;
 terminal String    CSTENTIERE, BOOLEEN, ENTIER, ID;
    
 /* Non terminals used in the grammar section.  */
@@ -70,7 +70,10 @@ non terminal String TYPE ;
  
 start with PROG ;
 
-PROG    ::=     DEBUT  LINST:li  FIN
+PROG    ::=     DEBUT LINST:li  FIN
+                {: RESULT = li ; :}
+        |
+                VARIABLES VAR:var DEBUT LINST:li  FIN
                 {: RESULT = li ; :}
                 ;
 
@@ -90,6 +93,9 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
     
 EXP    ::=     CSTENTIERE:c
                 {: RESULT = new ConstanteEntiere(c, cleft + 1) ; :}
+        |
+                ID:id
+                {: RESULT = new Idf(id, idleft + 1) ; :}
                 ;
 
 /* A Vérifier avec le prochain CM*/
