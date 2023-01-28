@@ -61,7 +61,7 @@ terminal String    CSTENTIERE, BOOLEEN, ENTIER, ID;
    
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG, LINST, VAR ; //VAR à vérifier
+non terminal ArbreAbstrait PROG, LINST, VAR, LVAR ; //VAR à vérifier
 non terminal Instruction INST ;
 non terminal Expression EXP ;
 non terminal String TYPE ;
@@ -73,7 +73,7 @@ start with PROG ;
 PROG    ::=     DEBUT LINST:li  FIN
                 {: RESULT = li ; :}
         |
-                VARIABLES VAR:var DEBUT LINST:li  FIN
+                VARIABLES LVAR:lvar DEBUT LINST:li  FIN
                 {: RESULT = li ; :}
                 ;
 
@@ -107,6 +107,16 @@ TYPE    ::=     BOOLEEN
                 {: RESULT = "entier" ; :}
                 ;
 
-VAR     ::=     TYPE: t ID:id POINTVIRGULE
+LVAR    ::=     LVAR:lvar VAR:var   //Inspiré de la règle LINST, à vérifer
+                {: /*((BlocDInstructions)lv).ajouter(var) ;
+                   RESULT = lvar ;*/ :}
+        |
+                VAR:var
+                {: /*BlocDInstructions b = new BlocDInstructions(varleft + 1) ;
+                   b.ajouter(var) ;
+                   RESULT = b ;*/ :}
+                ;
+
+VAR     ::=     TYPE:t ID:id POINTVIRGULE
                 {: TDS.getInstance().ajouter(id, new Symbole(t)) ; :}
                 ;
