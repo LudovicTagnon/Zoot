@@ -12,16 +12,16 @@ import java.util.ArrayList;
 
 public class BlocDInstructions extends ArbreAbstrait {
     
-    protected ArrayList<Instruction> programme ;
+    protected ArrayList<ArbreAbstrait> programme ; //Passe en ArrayList<ArbreAbstrait> pour régler les conflits (Instruction de base)
 
     public BlocDInstructions(int n) {
         super(n) ;
         programme = new ArrayList<>() ;
     }
     
-    public void ajouter(Instruction i) {
+    public void ajouter(ArbreAbstrait i) {
         programme.add(i) ;
-    }
+    } //Modification dû a ArrayList
 
     @Override
     public void verifier() {
@@ -35,7 +35,7 @@ public class BlocDInstructions extends ArbreAbstrait {
         sb.append("#Début du programme\n");
         sb.append(".data\nnewline: .asciiz \"\\n\""); //Créer un saut de ligne
         sb.append("\n\n.text"); //Début du code
-        for (Instruction i : programme) {
+        for (ArbreAbstrait i : programme) {   //Modification dû a ArrayList
             sb.append(i.toMIPS());
         }
         return sb.toString();

@@ -108,13 +108,13 @@ TYPE    ::=     BOOLEEN
                 ;
 
 LVAR    ::=     LVAR:lvar VAR:var   //Inspiré de la règle LINST, à vérifer
-                {: /*((BlocDInstructions)lv).ajouter(var) ;
-                   RESULT = lvar ;*/ :}
+                {: ((BlocDInstructions)lvar).ajouter(var) ;
+                   RESULT = lvar ; :}
         |
                 VAR:var
-                {: /*BlocDInstructions b = new BlocDInstructions(varleft + 1) ;
+                {: BlocDInstructions b = new BlocDInstructions(varleft + 1) ;
                    b.ajouter(var) ;
-                   RESULT = b ;*/ :}
+                   RESULT = b ; :}
                 ;
 
 VAR     ::=     TYPE:t ID:id POINTVIRGULE
