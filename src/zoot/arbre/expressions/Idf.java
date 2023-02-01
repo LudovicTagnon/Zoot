@@ -22,4 +22,8 @@ public class Idf extends Expression{
     public String toMIPS() {
         return null;
     }
+
+    public String getType(){
+        return this.s.getType();
+    }
 }

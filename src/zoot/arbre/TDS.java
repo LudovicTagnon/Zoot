@@ -2,6 +2,7 @@ package zoot.arbre;
 
 import zoot.exceptions.DoubleDeclarationException;
 import zoot.exceptions.NonDeclarerException;
+import zoot.exceptions.VariableNonDeclareeException;
 
 import java.util.HashMap;
 
@@ -25,7 +26,7 @@ public class TDS {
         }
 
         s.setDecalage(table.size()*-4); //décalage négatif pour les variables
-        table.put(idf, s);
+        table.put(idf, s); // On met l'élément dans la table de hashage
     }
 
     public Symbole existe(String idf)  throws NonDeclarerException {
@@ -34,6 +35,11 @@ public class TDS {
             throw new NonDeclarerException(idf);
         }
         return table.get(idf);
+    }
+
+    public int identifier(String Nom) throws VariableNonDeclareeException {
+        //TODO
+        return 0;
     }
 
 }
