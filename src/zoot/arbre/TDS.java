@@ -2,7 +2,6 @@ package zoot.arbre;
 
 import zoot.exceptions.DoubleDeclarationException;
 import zoot.exceptions.NonDeclarerException;
-import zoot.exceptions.VariableNonDeclareeException;
 
 import java.util.HashMap;
 
@@ -35,11 +34,6 @@ public class TDS {
             throw new NonDeclarerException(idf);
         }
         return table.get(idf);
-    }
-
-    public int identifier(String Nom) throws VariableNonDeclareeException {
-        //TODO
-        return 0;
     }
 
 }

@@ -5,7 +5,6 @@ import zoot.arbre.TDS;
 
 public class Idf extends Expression{
     private String nom;
-
     private Symbole s;
 
     public Idf(String nom, int n) {
