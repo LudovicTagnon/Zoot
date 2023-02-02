@@ -9,7 +9,7 @@ public class Affectation extends Instruction{
     private final Idf variable;
     private final Expression exp;
 
-    protected Affectation(int n, Idf idf, Expression e) {
+    public Affectation(int n, Idf idf, Expression e) {
         super(n);
         variable = idf;
         exp = e;

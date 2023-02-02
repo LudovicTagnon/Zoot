@@ -52,6 +52,8 @@ variable = [a-zA-Z][a-zA-z0-9]* //Vérifier si la regex correspond à l'enoncé
 
 "ecrire"               { return symbol(CodesLexicaux.ECRIRE); }
 
+"="                    { return symbol(CodesLexicaux.EGALE); }
+
 ";"                    { return symbol(CodesLexicaux.POINTVIRGULE); }
 
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }

@@ -30,6 +30,7 @@ public class TDS {
     }
 
     public Symbole identifier(Entree e)  throws NonDeclarerException {
+        //Todo: modifier la focntion, en l'état throw tous le temps l'exception
         //Si la variable n'existe pas, on lève une exception
         if (!table.containsKey(e)){
             throw new NonDeclarerException(e);
