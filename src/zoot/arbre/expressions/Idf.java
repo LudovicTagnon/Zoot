@@ -14,7 +14,7 @@ public class Idf extends Expression{
 
     @Override
     public void verifier() {
-        s = TDS.getInstance().existe(nom); //vérification de l'existence
+        s = TDS.getInstance().identifier(nom); //vérification de l'existence
     }
 
     @Override
