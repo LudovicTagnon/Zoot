@@ -13,7 +13,7 @@ public class Ecrire extends Instruction {
 
     @Override
     public void verifier() {
-        throw new UnsupportedOperationException("fonction verfier non définie ") ;
+        //throw new UnsupportedOperationException("fonction verfier non définie ") ;
     }
 
     @Override

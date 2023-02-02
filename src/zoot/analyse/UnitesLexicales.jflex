@@ -31,10 +31,10 @@ import zoot.exceptions.AnalyseLexicaleException;
   }
 %}
 
-csteE = [0-9]+
+csteE = [0-9]+ //TODO:voir pour gerer les moins avec -?
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
-variable = [a-zA-Z0-9]+ //Vérifier si la regex correspond à l'enoncé
+variable = [a-zA-Z][a-zA-z0-9]* //Vérifier si la regex correspond à l'enoncé
 
 %%
 "//".*                          { /* DO NOTHING */ }
@@ -54,9 +54,9 @@ variable = [a-zA-Z0-9]+ //Vérifier si la regex correspond à l'enoncé
 
 ";"                    { return symbol(CodesLexicaux.POINTVIRGULE); }
 
-{variable}             { return symbol(CodesLexicaux.ID, yytext()); }
-
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
+
+{variable}             { return symbol(CodesLexicaux.ID, yytext()); }
 
 {espace}               { }
 .                      { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ; }
