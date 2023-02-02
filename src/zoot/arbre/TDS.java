@@ -29,12 +29,12 @@ public class TDS {
         table.put(e, s); // On met l'élément dans la table de hashage
     }
 
-    public Symbole identifier(String idf)  throws NonDeclarerException {
+    public Symbole identifier(Entree e)  throws NonDeclarerException {
         //Si la variable n'existe pas, on lève une exception
-        if (!table.containsKey(idf)){
-            throw new NonDeclarerException(idf);
+        if (!table.containsKey(e)){
+            throw new NonDeclarerException(e);
         }
-        return table.get(idf);
+        return table.get(e);
     }
 
 }
