@@ -12,4 +12,8 @@ public class ConstanteEntiere extends Constante {
         return "#Attribut la valeur à $v0\nli $v0, " + cste + "\n";
     }
 
+    @Override
+    public String getType() {
+        return null;
+    }
 }

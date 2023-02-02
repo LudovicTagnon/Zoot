@@ -4,6 +4,7 @@ import java.util.*;
 import zoot.arbre.* ;
 import zoot.arbre.expressions.* ;
 import zoot.arbre.instructions.* ;
+import zoot.arbre.declarations.* ;
 import zoot.exceptions.AnalyseSyntaxiqueException;
 
 import java_cup.runtime.*;
@@ -95,7 +96,7 @@ EXP    ::=     CSTENTIERE:c
                 {: RESULT = new ConstanteEntiere(c, cleft + 1) ; :}
         |
                 ID:id
-                {: RESULT = new Idf(id, idleft + 1) ; :}
+                {: RESULT = new Idf( new EntreeVariable(id), idleft + 1) ; :}
                 ;
 
 /* A Vérifier avec le prochain CM*/
@@ -118,5 +119,5 @@ LVAR    ::=     LVAR:lvar VAR:var   //Inspiré de la règle LINST, à vérifer
                 ;
 
 VAR     ::=     TYPE:t ID:id POINTVIRGULE
-                {: TDS.getInstance().ajouter(id, new Symbole(t)) ; :}
+                {: TDS.getInstance().ajouter( new EntreeVariable(id), new Symbole(t)) ; :}
                 ;

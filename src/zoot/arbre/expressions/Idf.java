@@ -2,19 +2,20 @@ package zoot.arbre.expressions;
 
 import zoot.arbre.Symbole;
 import zoot.arbre.TDS;
+import zoot.arbre.declarations.Entree;
 
 public class Idf extends Expression{
-    private String nom;
+    private Entree e;
     private Symbole s;
 
-    public Idf(String nom, int n) {
+    public Idf(Entree entree, int n) {
         super(n);
-        this.nom = nom; //nom de la variable
+        e = entree; //nom de la variable
     }
 
     @Override
     public void verifier() {
-        s = TDS.getInstance().identifier(nom); //vérification de l'existence
+        s = TDS.getInstance().identifier(e); //vérification de l'existence
     }
 
     @Override
