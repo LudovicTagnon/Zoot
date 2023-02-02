@@ -1,13 +1,9 @@
 package zoot.arbre.declarations;
 
-public class EntreeVariable {
-    private final String nomVariable;
+public class EntreeVariable extends Entree {
 
     public EntreeVariable(String nom) {
-        this.nomVariable = nom;
+        super(nom);
     }
 
-    public String getNom() {
-        return this.nomVariable;
-    }
 }

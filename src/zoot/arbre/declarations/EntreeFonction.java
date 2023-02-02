@@ -1,18 +1,17 @@
 package zoot.arbre.declarations;
 
-public class EntreeFonction {
-    private final String nomFonction;
+public class EntreeFonction extends Entree{
     private final int nbParam;
     private final String type;
 
     public EntreeFonction() {
-        this.nomFonction = null;
+        super(""); //nom = "
         this.nbParam = 0;
         this.type = null;
     }
 
     public EntreeFonction(String nom, int nbParam, String type) {
-        this.nomFonction = nom;
+        super(nom);
         this.nbParam = nbParam;
         this.type = type;
     }
