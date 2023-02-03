@@ -27,10 +27,17 @@ public class Affectation extends Instruction{
 
     @Override
     public String toMIPS() {
-        StringBuilder sb = new StringBuilder("#Affectation d'un variable\n");
-        sb.append(exp.toMIPS()); //store la valeur dans v0
-        sb.append("sw $v0, ");
-        sb.append(variable.toMIPS());
-        return sb.toString();
+        String mips = "#Affectation d'un variable\n";
+
+        if (exp.isConstante()){
+            mips += "li ";
+        } else {
+            mips += "lw "; //load word si exp est une variable
+        }
+
+        mips += "$v0, "+exp.toMIPS(); //store la valeur dans v0
+        mips += "sw $v0, ";
+        mips += variable.toMIPS();
+        return mips;
     }
 }

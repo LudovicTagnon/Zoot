@@ -13,16 +13,21 @@ public class Ecrire extends Instruction {
 
     @Override
     public void verifier() {
-        //throw new UnsupportedOperationException("fonction verfier non définie ") ;
+        exp.verifier();
     }
 
     @Override
     public String toMIPS() {
         //throw new UnsupportedOperationException("fonction toMips non définie ") ;
 
-        String mips = "\n" ;
-        // Evaluate the expression
-        mips += exp.toMIPS() ;
+        String mips = "\n#Valeur dans le $v0\n" ;
+        if (exp.isConstante()){
+            mips += "li";
+        } else {
+            mips += "lw";
+        }
+
+        mips += " $v0, " + exp.toMIPS() ;
         // Print the result to the console
         mips += "#Déplace la valeur à afficher dans $a0\nmove $a0, $v0\n" ;
         mips += "#Numéro du read\nli $v0, 1\n" ;

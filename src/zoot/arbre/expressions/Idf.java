@@ -20,7 +20,7 @@ public class Idf extends Expression{
 
     @Override
     public String toMIPS() {
-        return s.getDecalage()+"($s7)";
+        return s.getDecalage()+"($s7)\n";
     }
 
     public String getType(){
