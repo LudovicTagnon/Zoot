@@ -27,7 +27,10 @@ public class Affectation extends Instruction{
 
     @Override
     public String toMIPS() {
-        //TODO
-        return null;
+        StringBuilder sb = new StringBuilder("#Affectation d'un variable\n");
+        sb.append(exp.toMIPS()); //store la valeur dans v0
+        sb.append("sw $v0, ");
+        sb.append(variable.toMIPS());
+        return sb.toString();
     }
 }
