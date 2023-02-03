@@ -30,12 +30,22 @@ public class TDS {
     }
 
     public Symbole identifier(Entree e)  throws NonDeclarerException {
-        //Todo: modifier la focntion, en l'état throw tous le temps l'exception
         //Si la variable n'existe pas, on lève une exception
-        if (!table.containsKey(e)){
+        Symbole s = null;
+        for (Entree entree : table.keySet()) {
+            if (entree.getNom().equals(e.getNom())) { //compare les noms des Entrée
+                s = table.get(entree);
+            }
+        }
+
+        if (s == null) {
             throw new NonDeclarerException(e);
         }
-        return table.get(e);
+
+        return s;
     }
 
+    public int getTailleVariable() {
+        return table.size()*-4;
+    }
 }

@@ -20,7 +20,7 @@ public class Idf extends Expression{
 
     @Override
     public String toMIPS() {
-        return null;
+        return "";
     }
 
     public String getType(){

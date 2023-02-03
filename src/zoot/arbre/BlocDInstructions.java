@@ -37,6 +37,7 @@ public class BlocDInstructions extends ArbreAbstrait {
         sb.append("#Début du programme\n");
         sb.append(".data\nnewline: .asciiz \"\\n\""); //Créer un saut de ligne
         sb.append("\n\n.text"); //Début du code
+        //Todo: Ajouter les variables avec déplacement de $sp
         for (ArbreAbstrait i : programme) {   //Modification dû a ArrayList
             sb.append(i.toMIPS());
         }
