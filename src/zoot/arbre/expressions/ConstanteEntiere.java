@@ -9,11 +9,16 @@ public class ConstanteEntiere extends Constante {
     @Override
     public String toMIPS() {
         //throw new UnsupportedOperationException("fonction toMips non définie ") ;
-        return "#Attribut la valeur à $v0\nli $v0, " + cste + "\n";
+        return cste + "\n";
     }
 
     @Override
     public String getType() {
         return "entier";
+    }
+
+    @Override
+    public boolean isConstante() {
+        return true;
     }
 }

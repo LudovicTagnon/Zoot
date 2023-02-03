@@ -10,4 +10,8 @@ public abstract class Expression extends ArbreAbstrait {
 
     public abstract String getType();
 
+    public boolean isConstante(){
+        return false;
+    }
+
 }
