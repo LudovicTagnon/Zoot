@@ -101,6 +101,9 @@ EXP    ::=     CSTENTIERE:c
         |
                 ID:id
                 {: RESULT = new Idf( new EntreeVariable(id), idleft + 1) ; :}
+        |
+                CSTBOOLEENNE:c
+                {: RESULT = new ConstanteBooleenne(c, cleft + 1) ; :}
                 ;
 
 /* A Vérifier avec le prochain CM*/
