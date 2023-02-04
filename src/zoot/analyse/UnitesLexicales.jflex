@@ -32,6 +32,7 @@ import zoot.exceptions.AnalyseLexicaleException;
 %}
 
 csteE = [0-9]+ //TODO:voir pour gerer les moins avec -?
+csteB = vrai|faux
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
 variable = [a-zA-Z][a-zA-z0-9]* //Vérifier si la regex correspond à l'enoncé
@@ -57,6 +58,8 @@ variable = [a-zA-Z][a-zA-z0-9]* //Vérifier si la regex correspond à l'enoncé
 ";"                    { return symbol(CodesLexicaux.POINTVIRGULE); }
 
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
+
+{csteB}                { return symbol(CodesLexicaux.CSTBOOLEENNE, yytext()); }
 
 {variable}             { return symbol(CodesLexicaux.ID, yytext()); }
 
