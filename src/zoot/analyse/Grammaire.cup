@@ -58,7 +58,7 @@ parser code {:
 /* Terminals (tokens returned by the scanner).  */
 
 terminal Symbol    DEBUT, FIN, POINTVIRGULE, ECRIRE, VARIABLES, EGALE ;
-terminal String    CSTENTIERE, BOOLEEN, ENTIER, ID;
+terminal String    CSTENTIERE, CSTBOOLEENNE, ENTIER, ID;
    
 /* Non terminals used in the grammar section.  */
 
@@ -108,7 +108,7 @@ EXP    ::=     CSTENTIERE:c
 
 /* A Vérifier avec le prochain CM*/
 
-TYPE    ::=     BOOLEEN
+TYPE    ::=     CSTBOOLEENNE
                 {: RESULT = "booleen" ; :}
         |
                 ENTIER
