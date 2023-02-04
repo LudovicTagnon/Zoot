@@ -48,4 +48,12 @@ public class TDS {
     public int getTailleVariable() {
         return table.size()*-4;
     }
+
+    public void  entréebloc() {
+        table = new HashMap<>();
+    }
+
+    public void sortieBloc() {
+        table.clear();
+    }
 }
