@@ -6,19 +6,28 @@ public class ConstanteBooleenne extends Constante{
 
     public ConstanteBooleenne(String val, int n) {
         super(val, n);
-        valeur = Boolean.parseBoolean(val);
+        if (val.equals("vrai")) {
+            valeur = true;
+        } else {
+            valeur = false;
+        }
     }
     @Override
     public String toMIPS() {
         if(valeur){
-            return "li $v0, 1\n";
+            return "1\n";
         }else{
-            return "li $v0, 0\n";
+            return "0\n";
         }
     }
 
     @Override
     public String getType() {
         return "booleen";
+    }
+
+    @Override
+    public boolean isConstante() {
+        return true;
     }
 }
