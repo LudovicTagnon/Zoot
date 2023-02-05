@@ -49,6 +49,8 @@ public class TDS {
         return table.size()*-4;
     }
 
+
+    //Todo:Utile pour Zoot2, vérifier avec les CM et TD
     public void  entréebloc() {
         table = new HashMap<>();
     }
