@@ -8,8 +8,10 @@ public class ConstanteBooleenne extends Constante{
         super(val, n);
         if (val.equals("vrai")) {
             valeur = true;
-        } else {
+        } else if(val.equals("faux")){
             valeur = false;
+        } else {
+            throw new IllegalArgumentException("La constante booleenne doit être vrai ou faux");
         }
     }
     @Override
