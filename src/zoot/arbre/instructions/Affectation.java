@@ -27,7 +27,7 @@ public class Affectation extends Instruction{
 
     @Override
     public String toMIPS() {
-        String mips = "\n#Affectation d'un variable\n";
+        String mips = "\n#Affectation d'une variable\n";
 
         if (exp.isConstante()){
             mips += "li ";
