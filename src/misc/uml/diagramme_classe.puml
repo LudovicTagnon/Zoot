@@ -79,11 +79,39 @@ package declaration #FFAA55 {
 }
 
 Class Symbole {
-    //TODO
+    int decalage
+    String type
+
+    int getDecalage()
+    void setDecalage()
+    String getType()
+    void setType()
+}
+
+Class TDS {
+    TDS instance
+    HashMap<Entree, Symbole> table
+
+    static TDS getInstance()
+    void ajouter(Entree e, Symbole s)
+    Symbole identifier(Entree e)
+    int getTailleVariable()
+    void  entréebloc()
+    void sortieBloc()
+}
+
+Class BlocDInstructions {
+    ArrayList<ArbreAbstrait> programme
+    void ajouter(ArbreAbstrait i)
+    void verifier()
+    String toMIPS()
+    String toString()
 }
 
 Idf -- "1" Entree
 
 Instruction --|> ArbreAbstrait
+BlocDInstructions --|> ArbreAbstrait
+
 
 @enduml
