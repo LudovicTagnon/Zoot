@@ -1,0 +1,89 @@
+@startuml
+title Diagramme de classe Zoot1
+
+Abstract ArbreAbstrait {
+    int noLigne
+    void verifier()
+    String toMIPS()
+}
+
+package instructions #7700AA {
+
+    Class Ecrire #DD00DD {
+        Ecrire(int n)
+        void verifier()
+        String toMIPS()
+    }
+
+    Class Affectation #DD00DD {
+        void verifier()
+        String toMIPS()
+    }
+
+    Abstract Instruction #DD00DD {}
+
+    Ecrire -|> Instruction
+    Affectation -|> Instruction
+}
+
+package expressions #22BB99 {
+    Abstract Expression #44FFAA {
+        String getType()
+        boolean isConstante()
+    }
+
+    Abstract Constante #44FFAA {
+        String cste
+        void verifier()
+        boolean isConstante()
+    }
+
+    Class ConstanteEntiere #44FFAA {
+        String toMIPS()
+        String getType()
+    }
+
+    Class ConstanteBooleenne #44FFAA {
+        String toMIPS()
+        String getType()
+    }
+
+    Class Idf #44FFAA {
+        String toMIPS()
+        void verifier()
+        String getType()
+        boolean isConstante()
+    }
+
+    Idf -|> Expression
+    Constante -|> Expression
+    ConstanteEntiere -|> Constante
+    ConstanteBooleenne -|> Constante
+}
+
+package declaration #FFAA55 {
+    Abstract Entree #FFCC00 {
+        String nom
+        String getNom()
+    }
+
+    Class EntreeVariable #FFCC00 {}
+
+    Class EntreeFonction #FFCC00 {
+        int nbParam
+        String type
+    }
+
+    EntreeFonction -|> Entree
+    EntreeVariable -|> Entree
+}
+
+Class Symbole {
+    //TODO
+}
+
+Idf -- "1" Entree
+
+Instruction --|> ArbreAbstrait
+
+@enduml
