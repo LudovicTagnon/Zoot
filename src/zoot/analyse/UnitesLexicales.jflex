@@ -46,7 +46,9 @@ variable = [a-zA-Z][a-zA-z0-9]* //Vérifier si la regex correspond à l'enoncé
 
 "variables"                     { return symbol(CodesLexicaux.VARIABLES); }
 
-//faire variable
+"("            { return symbol(CodesLexicaux.PARENTHESEOUVRANTE); }
+
+")"            { return symbol(CodesLexicaux.PARENTHESEFERMANTE); }
 
 "debut"                { return symbol(CodesLexicaux.DEBUT); }
 "fin"              	   { return symbol(CodesLexicaux.FIN); }

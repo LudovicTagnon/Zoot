@@ -57,12 +57,12 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    DEBUT, FIN, POINTVIRGULE, ECRIRE, VARIABLES, EGALE ;
+terminal Symbol    DEBUT, FIN, POINTVIRGULE, ECRIRE, VARIABLES, EGALE, PARENTHESEOUVRANTE, PARENTHESEFERMANTE;
 terminal String    CSTENTIERE, CSTBOOLEENNE, BOOLEEN,ENTIER, ID;
    
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG, LINST, VAR, LVAR ; //VAR à vérifier
+non terminal ArbreAbstrait PROG, LINST, VAR, LVAR, FCT ; //FCT à vérifier
 non terminal Instruction INST ;
 non terminal Expression EXP ;
 non terminal String TYPE ;
@@ -75,6 +75,9 @@ PROG    ::=     DEBUT LINST:li  FIN
                 {: RESULT = li ; :}
         |
                 VARIABLES LVAR:lvar DEBUT LINST:li  FIN
+                {:RESULT = li ; :}
+        |
+                VARIABLES LVAR:lvar FCT:f DEBUT LINST:li  FIN
                 {:RESULT = li ; :}
                 ;
 
@@ -125,4 +128,8 @@ LVAR    ::=     LVAR:lvar VAR:var   //Inspiré de la règle LINST, à vérifer
 
 VAR     ::=     TYPE:t ID:id POINTVIRGULE
                 {: TDS.getInstance().ajouter( new EntreeVariable(id), new Symbole(t)) ;:}
+                ;
+
+FCT     ::=     TYPE:t ID:id PARENTHESEOUVRANTE PARENTHESEFERMANTE
+                {: :}
                 ;
