@@ -12,8 +12,4 @@ public abstract class Entree {
     public String getNom(){
         return nom;
     }
-    public String toString(){
-        //TODO
-        return "";
-    }
 }

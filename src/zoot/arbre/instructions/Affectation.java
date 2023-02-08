@@ -20,7 +20,6 @@ public class Affectation extends Instruction{
         variable.verifier();
         exp.verifier();
         if(!variable.getType().equals(exp.getType())){
-            //TODO
             throw new TypeIncompatibleException(variable, exp);
         }
     }

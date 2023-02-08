@@ -18,7 +18,6 @@ public class Ecrire extends Instruction {
 
     @Override
     public String toMIPS() {
-        //throw new UnsupportedOperationException("fonction toMips non définie ") ;
 
         String mips = "\n#Valeur dans le $v0\n" ;
         if (exp.isConstante()){

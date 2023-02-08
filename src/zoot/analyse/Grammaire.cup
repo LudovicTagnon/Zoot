@@ -106,8 +106,6 @@ EXP    ::=     CSTENTIERE:c
                 {: RESULT = new ConstanteBooleenne(c, cleft + 1) ; :}
                 ;
 
-/* A Vérifier avec le prochain CM*/
-
 TYPE    ::=     BOOLEEN
                 {: RESULT = "booleen" ; :}
         |
