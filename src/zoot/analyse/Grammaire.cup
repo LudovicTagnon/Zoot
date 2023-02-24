@@ -116,7 +116,7 @@ TYPE    ::=     BOOLEEN
                 {: RESULT = "entier" ; :}
                 ;
 
-LVAR    ::=     LVAR:lvar VAR:var   //Inspiré de la règle LINST, à vérifer
+LVAR    ::=     LVAR:lvar VAR:var
                 {: ((BlocDInstructions)lvar).ajouter(var) ;
                    RESULT = lvar ; :}
         |
