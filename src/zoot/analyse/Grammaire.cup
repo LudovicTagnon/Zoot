@@ -140,6 +140,6 @@ LFCT    ::=     LFCT:lfct FCT:f
                    RESULT = b ; :}
                 ;
 
-FCT     ::=     TYPE:t ID:id PARENTHESEOUVRANTE PARENTHESEFERMANTE
+FCT     ::=     TYPE:t ID:id PARENTHESEOUVRANTE PARENTHESEFERMANTE DEBUT LINST:li FIN
                 {: :}
                 ;
