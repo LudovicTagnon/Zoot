@@ -57,12 +57,12 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    DEBUT, FIN, POINTVIRGULE, ECRIRE, VARIABLES, EGALE, PARENTHESEOUVRANTE, PARENTHESEFERMANTE;
+terminal Symbol    DEBUT, FIN, POINTVIRGULE, ECRIRE, VARIABLES, EGALE, PARENTHESEOUVRANTE, PARENTHESEFERMANTE, FONCTIONS;
 terminal String    CSTENTIERE, CSTBOOLEENNE, BOOLEEN,ENTIER, ID;
    
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG, LINST, VAR, LVAR, FCT ; //FCT à vérifier
+non terminal ArbreAbstrait PROG, LINST, VAR, LVAR, FCT, LFCT ; //FCT et LFCT à vérifier
 non terminal Instruction INST ;
 non terminal Expression EXP ;
 non terminal String TYPE ;
@@ -77,7 +77,7 @@ PROG    ::=     DEBUT LINST:li  FIN
                 VARIABLES LVAR:lvar DEBUT LINST:li  FIN
                 {:RESULT = li ; :}
         |
-                VARIABLES LVAR:lvar FCT:f DEBUT LINST:li  FIN
+                VARIABLES LVAR:lvar FONCTIONS LFCT:lf DEBUT LINST:li  FIN
                 {:RESULT = li ; :}
                 ;
 
@@ -128,6 +128,16 @@ LVAR    ::=     LVAR:lvar VAR:var   //Inspiré de la règle LINST, à vérifer
 
 VAR     ::=     TYPE:t ID:id POINTVIRGULE
                 {: TDS.getInstance().ajouter( new EntreeVariable(id), new Symbole(t)) ;:}
+                ;
+
+LFCT    ::=     LFCT:lfct FCT:f
+                {: ((BlocDInstructions)lfct).ajouter(f) ;
+                   RESULT = lfct ; :}
+        |
+                FCT:f
+                {: BlocDInstructions b = new BlocDInstructions(fleft + 1) ;
+                   b.ajouter(f) ;
+                   RESULT = b ; :}
                 ;
 
 FCT     ::=     TYPE:t ID:id PARENTHESEOUVRANTE PARENTHESEFERMANTE
