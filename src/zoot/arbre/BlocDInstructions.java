@@ -36,7 +36,7 @@ public class BlocDInstructions extends ArbreAbstrait {
         StringBuilder sb = new StringBuilder();
         sb.append("#Début du programme\n");
         sb.append(".data\nnewline: .asciiz \"\\n\""); //Créer un saut de ligne
-        sb.append("\n\n.text"); //Début du code
+        sb.append("\n\n.text\nmain:"); //Début du code principal
         sb.append("\nmove $s7, $sp"); //Sauvegarde de la valeur de $sp
         sb.append("\naddi $sp, $sp, "+TDS.getInstance().getTailleVariable());
         for (ArbreAbstrait i : programme) {   //Modification dû a ArrayList
