@@ -14,4 +14,8 @@ public abstract class Expression extends ArbreAbstrait {
         return false;
     }
 
+    public boolean isFonc(){
+        return false;
+    }
+
 }

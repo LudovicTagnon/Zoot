@@ -32,4 +32,9 @@ public class AppelFonc extends Expression{
     public String getType() {
         return s.getType();
     }
+
+    @Override
+    public boolean isFonc() {
+        return true;
+    }
 }
