@@ -57,7 +57,7 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    DEBUT, FIN, POINTVIRGULE, ECRIRE, VARIABLES, EGALE, PARENTHESEOUVRANTE, PARENTHESEFERMANTE, FONCTIONS;
+terminal Symbol    DEBUT, FIN, POINTVIRGULE, ECRIRE, VARIABLES, EGALE, PARENTHESEOUVRANTE, PARENTHESEFERMANTE, FONCTIONS, RETOURNE;
 terminal String    CSTENTIERE, CSTBOOLEENNE, BOOLEEN,ENTIER, ID;
    
 /* Non terminals used in the grammar section.  */
@@ -97,6 +97,9 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
                 ID:id EGALE EXP:e POINTVIRGULE
                 {: Idf i = new Idf( new EntreeVariable(id), idleft + 1) ;
                    RESULT = new Affectation(idleft+1, i, e) ; :}
+        |
+                RETOURNE EXP:e POINTVIRGULE
+                {: RESULT = new Retourne(e, eleft+1); :}
                 ;
     
 EXP    ::=     CSTENTIERE:c
