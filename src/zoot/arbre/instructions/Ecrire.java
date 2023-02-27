@@ -18,7 +18,7 @@ public class Ecrire extends Instruction {
 
     @Override
     public String toMIPS() {
-
+        //TODO: Adapter si exp est un appel de fonction
         String mips = "\n#Valeur dans le $v0\n" ;
         if (exp.isConstante()){
             mips += "li";
