@@ -141,5 +141,6 @@ LFCT    ::=     LFCT:lfct FCT:f
                 ;
 
 FCT     ::=     TYPE:t ID:id PARENTHESEOUVRANTE PARENTHESEFERMANTE DEBUT LINST:li FIN
-                {: TDS.getInstance().ajouter( new EntreeFonction(id, 0), new Symbole(t)) ;:}
+                {: TDS.getInstance().ajouter( new EntreeFonction(id, 0), new Symbole(t)) ;
+                   TDS.getInstance().ajouterFonction(new Fonction(id, li, idleft+1)) ; :}
                 ;

@@ -20,7 +20,8 @@ public class Fonction extends ArbreAbstrait{
 
     @Override
     public String toMIPS() {
-        //TODO
-        return null;
+        String mips = nom + ":\n";
+        mips += instruction.toMIPS();
+        return mips;
     }
 }
