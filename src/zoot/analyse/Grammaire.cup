@@ -110,6 +110,9 @@ EXP    ::=     CSTENTIERE:c
         |
                 CSTBOOLEENNE:c
                 {: RESULT = new ConstanteBooleenne(c, cleft + 1) ; :}
+        |
+                ID:id PARENTHESEOUVRANTE PARENTHESEFERMANTE
+                {: RESULT = new AppelFonc(new EntreeFonction(id, 0), idleft + 1) ; :}
                 ;
 
 TYPE    ::=     BOOLEEN

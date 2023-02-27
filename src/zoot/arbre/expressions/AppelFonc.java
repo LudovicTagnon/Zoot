@@ -10,7 +10,7 @@ public class AppelFonc extends Expression{
     Entree e;
     Symbole s;
 
-    protected AppelFonc(Entree entree, int n) {
+    public AppelFonc(Entree entree, int n) {
         super(n);
         e = entree;
     }
