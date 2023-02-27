@@ -19,14 +19,19 @@ public class Ecrire extends Instruction {
     @Override
     public String toMIPS() {
         //TODO: Adapter si exp est un appel de fonction
-        String mips = "\n#Valeur dans le $v0\n" ;
-        if (exp.isConstante()){
-            mips += "li";
-        } else {
-            mips += "lw";
-        }
+        String mips = "\n#Ecrire\n" ;
 
-        mips += " $v0, " + exp.toMIPS() ;
+        if (exp.isFonc()){
+            mips += exp.toMIPS() + "\n";
+        } else {
+            if (exp.isConstante()) {
+                mips += "li";
+            } else {
+                mips += "lw";
+            }
+
+            mips += " $v0, " + exp.toMIPS();
+        }
         // Print the result to the console
         mips += "#Déplace la valeur à afficher dans $a0\nmove $a0, $v0\n" ;
         mips += "#Numéro du read\nli $v0, 1\n" ;
@@ -34,6 +39,7 @@ public class Ecrire extends Instruction {
         mips += "#Saut de ligne\nli $v0, 4\n" ;
         mips += "la $a0, newline\n" ;
         mips += "syscall\n" ;
+
         return mips ;
     }
 
