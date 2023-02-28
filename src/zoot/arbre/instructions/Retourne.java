@@ -25,8 +25,13 @@ public class Retourne extends Instruction {
     @Override
     public String toMIPS() {
         String mips = "#Retourne\n";
-        mips += "li $v0, " + exp.toMIPS() + "\n";
+        if (!exp.isFonc()) {
+            mips += "li $v0, " + exp.toMIPS() + "\n";
+        } else {
+            mips += exp.toMIPS();
+        }
         mips += "jr $ra\n";
+
         return mips;
     }
 
