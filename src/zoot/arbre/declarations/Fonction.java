@@ -1,6 +1,9 @@
 package zoot.arbre.declarations;
 
 import zoot.arbre.ArbreAbstrait;
+import zoot.arbre.BlocDInstructions;
+import zoot.arbre.instructions.Instruction;
+import zoot.exceptions.ReturnException;
 
 public class Fonction extends ArbreAbstrait{
 
@@ -16,6 +19,18 @@ public class Fonction extends ArbreAbstrait{
     @Override
     public void verifier() {
         instruction.verifier();
+
+        boolean retourne = false;
+        BlocDInstructions inst = (BlocDInstructions) instruction;
+        for (ArbreAbstrait i : inst.getInstructions()){
+            if (i.isReturn()){
+                retourne = true;
+            }
+        }
+
+        if (!retourne){
+            throw new ReturnException(noLigne, "Pas de retour dans la fonction " + nom);
+        }
     }
 
     @Override

@@ -29,6 +29,15 @@ public class BlocDInstructions extends ArbreAbstrait {
         for (ArbreAbstrait i : programme) {   //Modification dû a ArrayList
             i.verifier();
         }
+
+        if (TDS.getInstance().getDebut()) {
+            TDS.getInstance().setDebut(false); //On met le début à false pour la suite
+            ArrayList<Fonction> fonctions = TDS.getInstance().getFonctions();
+            for (Fonction f : fonctions) {
+                f.verifier();
+            }
+            TDS.getInstance().setDebut(true); //On remet le début à true pour toMips()
+        }
     }
     
     @Override
@@ -56,6 +65,10 @@ public class BlocDInstructions extends ArbreAbstrait {
             }
         }
         return sb.toString();
+    }
+
+    public ArrayList<ArbreAbstrait> getInstructions() {
+        return programme;
     }
 
     @Override
