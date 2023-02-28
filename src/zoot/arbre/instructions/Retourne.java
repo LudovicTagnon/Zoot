@@ -1,6 +1,8 @@
 package zoot.arbre.instructions;
 
+import zoot.arbre.TDS;
 import zoot.arbre.expressions.Expression;
+import zoot.exceptions.ReturnException;
 
 public class Retourne extends Instruction {
 
@@ -13,7 +15,11 @@ public class Retourne extends Instruction {
 
     @Override
     public void verifier() {
-        //TODO
+        exp.verifier();
+
+        if (TDS.getInstance().getDebut()){
+            throw new ReturnException(noLigne, "Retourne hors d'une fonction");
+        }
     }
 
     @Override
@@ -22,5 +28,10 @@ public class Retourne extends Instruction {
         mips += "li $v0, " + exp.toMIPS() + "\n";
         mips += "jr $ra\n";
         return mips;
+    }
+
+    @Override
+    public boolean isReturn() {
+        return true;
     }
 }
