@@ -15,6 +15,11 @@ public abstract class Constante extends Expression {
     }
 
     @Override
+    public String getNom() {
+        return cste;
+    }
+
+    @Override
     public String toString() {
         return cste ;
     }

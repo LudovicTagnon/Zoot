@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class TDS {
 
     private static TDS instance = new TDS();
-    private HashMap<Entree, Symbole> table ;
+    private HashMap<Entree, Symbole> table ; //Todo
 
     //TODO: cherhcer a relocaliser ça (autre singleton ?)
     private ArrayList<Fonction> fonctions; //provisoire
@@ -62,19 +62,7 @@ public class TDS {
         return table.size()*-4;
     }
 
-    public ArrayList<Fonction> getFonctions() {
-        return fonctions;
-    }
-
-    public void setDebut(boolean debut) {
-        this.debut = debut;
-    }
-
-    public boolean getDebut() {
-        return debut;
-    }
-
-    public void  entréebloc() {
+    public void  entreebloc() {
         table = new HashMap<>();
     }
 

@@ -8,7 +8,6 @@ public class ConstanteEntiere extends Constante {
 
     @Override
     public String toMIPS() {
-        //throw new UnsupportedOperationException("fonction toMips non définie ") ;
         return cste + "\n";
     }
 

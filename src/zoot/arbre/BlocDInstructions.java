@@ -1,9 +1,11 @@
 package zoot.arbre;
 
 import zoot.arbre.declarations.Fonction;
+import zoot.arbre.declarations.LFCT;
 import zoot.arbre.instructions.Instruction;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * 21 novembre 2018
@@ -30,13 +32,14 @@ public class BlocDInstructions extends ArbreAbstrait {
             i.verifier();
         }
 
-        if (TDS.getInstance().getDebut()) {
-            TDS.getInstance().setDebut(false); //On met le début à false pour la suite
-            ArrayList<Fonction> fonctions = TDS.getInstance().getFonctions();
-            for (Fonction f : fonctions) {
+        if (LFCT.getInstance().getDebut()) {
+            LFCT.getInstance().setDebut(false); //On met le début à false pour la suite
+            Iterator<Fonction> it = LFCT.getInstance().getIterator();
+            while (it.hasNext()) { //On vérifie les fonctions
+                Fonction f = it.next();
                 f.verifier();
             }
-            TDS.getInstance().setDebut(true); //On remet le début à true pour toMips()
+            LFCT.getInstance().setDebut(true); //On remet le début à true pour toMips()
         }
     }
     
@@ -44,22 +47,25 @@ public class BlocDInstructions extends ArbreAbstrait {
     public String toMIPS() {
         //Boucle sur les instructions
         StringBuilder sb = new StringBuilder();
-        if (TDS.getInstance().getDebut()) { //Si c'est le début du programme
-            TDS.getInstance().setDebut(false); //ce n'est plus le début
+        if (LFCT.getInstance().getDebut()) { //Si c'est le début du programme (main)
+            LFCT.getInstance().setDebut(false); //ce n'est plus le début
             sb.append("#Début du programme\n");
             sb.append(".data\nnewline: .asciiz \"\\n\""); //Créer un saut de ligne
+            sb.append("vrai: .asciiz \"vrai\"\nfaux: .asciiz \"faux\"\n"); //Affichage vrai/faux
             sb.append("\n\n.text\nmain:"); //Début du code principal
+            sb.append("la $s0, 0\n"); //Initialisation de $s0 à faux (pour beq)
             sb.append("\nmove $s7, $sp"); //Sauvegarde de la valeur de $sp
             sb.append("\naddi $sp, $sp, " + TDS.getInstance().getTailleVariable());
             for (ArbreAbstrait i : programme) {   //Modification dû a ArrayList
                 sb.append(i.toMIPS());
             }
 
-            ArrayList<Fonction> fonctions = TDS.getInstance().getFonctions();
-            for (Fonction f : fonctions) {
+            Iterator<Fonction> it = LFCT.getInstance().getIterator();
+            while (it.hasNext()) {
+                Fonction f = it.next();
                 sb.append(f.toMIPS());
             }
-        } else {
+        } else { //Sinon c'est une fonction (pas main)
             for (ArbreAbstrait i : programme) {
                 sb.append(i.toMIPS());
             }

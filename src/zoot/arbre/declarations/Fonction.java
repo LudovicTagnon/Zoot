@@ -39,4 +39,8 @@ public class Fonction extends ArbreAbstrait{
         mips += instruction.toMIPS();
         return mips;
     }
+
+    public String getNom(){
+        return nom;
+    }
 }

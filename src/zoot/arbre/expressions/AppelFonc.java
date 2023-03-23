@@ -37,4 +37,9 @@ public class AppelFonc extends Expression{
     public boolean isFonc() {
         return true;
     }
+
+    @Override
+    public String getNom() {
+        return e.getNom();
+    }
 }
