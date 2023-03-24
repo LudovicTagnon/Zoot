@@ -24,7 +24,9 @@ public class CollectExcept {
     }
 
     private static CollectExcept instance = new CollectExcept();
-    private ArrayList<exception> exceptions;
+    //private ArrayList<exception> exceptions;
+
+    private ArrayList<AnalyseException> exceptions;
 
     private CollectExcept() {
         exceptions = new ArrayList<>(3);
@@ -34,11 +36,27 @@ public class CollectExcept {
         return instance;
     }
 
-    public void addException(int l, String m) {
+    /*public void addException(int l, String m) {
         exceptions.add(new exception(l, m));
+    }*/
+
+    public void addException(AnalyseException ex) {
+        exceptions.add(ex);
     }
 
-    public Iterator<exception> getExceptions() {
+    public int getNbExceptions() {
+        return exceptions.size();
+    }
+
+    public Iterator<AnalyseException> getIterator() {
         return exceptions.iterator();
     }
+/*
+    public int getLigne(int i) {
+        return exceptions.get(i).getLigne();
+    }
+
+    public String getMsg(int i) {
+        return exceptions.get(i).getMsg();
+    }*/
 }

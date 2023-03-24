@@ -18,7 +18,6 @@ public class Ecrire extends Instruction {
 
     @Override
     public String toMIPS() {
-        //TODO: Adapter si exp est un appel de fonction
         String mips = "\n#Ecrire "+exp.getNom()+"\n" ;
         int sys = 1; //Syscall pour afficher un entier
 

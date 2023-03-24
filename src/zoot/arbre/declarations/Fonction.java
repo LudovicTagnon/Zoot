@@ -3,6 +3,7 @@ package zoot.arbre.declarations;
 import zoot.arbre.ArbreAbstrait;
 import zoot.arbre.BlocDInstructions;
 import zoot.arbre.instructions.Instruction;
+import zoot.exceptions.CollectExcept;
 import zoot.exceptions.ReturnException;
 
 public class Fonction extends ArbreAbstrait{
@@ -27,9 +28,12 @@ public class Fonction extends ArbreAbstrait{
                 retourne = true;
             }
         }
-
-        if (!retourne){
-            throw new ReturnException(noLigne, "Pas de retour dans la fonction " + nom);
+        try {
+            if (!retourne) {
+                throw new ReturnException(noLigne, "Pas de retour dans la fonction " + nom);
+            }
+        } catch (ReturnException e) {
+            CollectExcept.getInstance().addException(e);
         }
     }
 

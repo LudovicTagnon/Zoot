@@ -2,6 +2,7 @@ package zoot.arbre.instructions;
 
 import zoot.arbre.expressions.Expression;
 import zoot.arbre.expressions.Idf;
+import zoot.exceptions.AnalyseException;
 import zoot.exceptions.CollectExcept;
 import zoot.exceptions.TypeIncompatibleException;
 
@@ -22,10 +23,10 @@ public class Affectation extends Instruction{
         exp.verifier();
         try {
             if (!variable.getType().equals(exp.getType())) {
-                throw new TypeIncompatibleException(variable, exp); //On lance une exception si les types ne sont pas compatibles
+                throw new TypeIncompatibleException(variable, exp, noLigne); //On lance une exception si les types ne sont pas compatibles
             }
-        } catch (TypeIncompatibleException e) {
-            CollectExcept.getInstance().addException(noLigne, e.getMessage()); //On ajoute l'exception à la liste des exceptions
+        } catch (AnalyseException e) {
+            CollectExcept.getInstance().addException(e); //On ajoute l'exception à la liste des exceptions
         }
     }
 

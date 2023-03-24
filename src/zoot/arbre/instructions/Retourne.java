@@ -27,7 +27,7 @@ public class Retourne extends Instruction {
                 throw new ReturnException(noLigne, "Retourne hors d'une fonction");
             }
         } catch (ReturnException e) {
-            CollectExcept.getInstance().addException(noLigne, e.getMessage());
+            CollectExcept.getInstance().addException(e);
         }
         //On cherche la fonction dans laquelle on est
         Iterator<Fonction> it = LFCT.getInstance().getIterator();
@@ -42,12 +42,12 @@ public class Retourne extends Instruction {
         }
         //On vérifie que le type de retour de la fonction est le même que celui de l'expression
         try {
-            Symbole s = TDS.getInstance().identifier(new EntreeFonction(nom,0)); //ici le 0 n'a pas d'importance
+            Symbole s = TDS.getInstance().identifier(new EntreeFonction(nom,0,0)); //ici les 0 n'ont pas d'importance
             if (!s.getType().equals(exp.getType())) {
                 throw new ReturnException(noLigne, "Le type de retour de la fonction ne correspond pas au type de l'expression");
             }
-        } catch (Exception e) {
-            CollectExcept.getInstance().addException(noLigne, e.getMessage());
+        } catch (ReturnException e) {
+            CollectExcept.getInstance().addException(e);
         }
 
         exp.verifier();

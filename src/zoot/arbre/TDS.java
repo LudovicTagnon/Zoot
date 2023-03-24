@@ -1,33 +1,22 @@
 package zoot.arbre;
 
 import zoot.arbre.declarations.Entree;
-import zoot.arbre.declarations.Fonction;
 import zoot.exceptions.DoubleDeclarationException;
 import zoot.exceptions.NonDeclarerException;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TDS {
 
     private static TDS instance = new TDS();
-    private HashMap<Entree, Symbole> table ; //Todo
-
-    //TODO: cherhcer a relocaliser ça (autre singleton ?)
-    private ArrayList<Fonction> fonctions; //provisoire
-    private boolean debut = true; //provisoire
+    private HashMap<Entree, Symbole> table ;
 
     private TDS() {
         table = new HashMap<>(3);
-        fonctions = new ArrayList<>();
     }
 
     public static TDS getInstance() {
         return instance ;
-    }
-
-    public void ajouterFonction(Fonction f) {
-        fonctions.add(f);
     }
 
     public void ajouter(Entree e, Symbole s) throws DoubleDeclarationException {

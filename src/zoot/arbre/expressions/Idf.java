@@ -20,7 +20,7 @@ public class Idf extends Expression{
         try {
             s = TDS.getInstance().identifier(e); //vérification de l'existence
         } catch (NonDeclarerException e) {
-            CollectExcept.getInstance().addException(noLigne, e.getMessage());
+            CollectExcept.getInstance().addException(e);
         }
     }
 
@@ -34,7 +34,11 @@ public class Idf extends Expression{
     }
 
     public String getType(){
-        return this.s.getType();
+        try {
+            return s.getType();
+        } catch (NullPointerException ex) {
+            return "";
+        }
     }
 
     @Override
