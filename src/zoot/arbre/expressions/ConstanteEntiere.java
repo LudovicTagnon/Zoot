@@ -20,4 +20,6 @@ public class ConstanteEntiere extends Constante {
     public boolean isConstante() {
         return true;
     }
+
+
 }

@@ -42,7 +42,7 @@ public class BlocDInstructions extends ArbreAbstrait {
             LFCT.getInstance().setDebut(true); //On remet le début à true pour toMips()
         }
     }
-    
+
     @Override
     public String toMIPS() {
         //Boucle sur les instructions
@@ -51,25 +51,28 @@ public class BlocDInstructions extends ArbreAbstrait {
             LFCT.getInstance().setDebut(false); //ce n'est plus le début
             sb.append("#Début du programme\n");
             sb.append(".data\nnewline: .asciiz \"\\n\""); //Créer un saut de ligne
-            sb.append("vrai: .asciiz \"vrai\"\nfaux: .asciiz \"faux\"\n"); //Affichage vrai/faux
+            sb.append("\nvrai: .asciiz \"vrai\"\nfaux: .asciiz \"faux\"\n"); //Affichage vrai/faux
             sb.append("\n\n.text\nmain:"); //Début du code principal
-            sb.append("la $s0, 0\n"); //Initialisation de $s0 à faux (pour beq)
+            sb.append("\nla $s0, 0\n"); //Initialisation de $s0 à faux (pour beq)
             sb.append("\nmove $s7, $sp"); //Sauvegarde de la valeur de $sp
             sb.append("\naddi $sp, $sp, " + TDS.getInstance().getTailleVariable());
             for (ArbreAbstrait i : programme) {   //Modification dû a ArrayList
                 sb.append(i.toMIPS());
             }
+            sb.append("b fin\n\n"); //On saute à la fin du programme
 
             Iterator<Fonction> it = LFCT.getInstance().getIterator();
             while (it.hasNext()) {
                 Fonction f = it.next();
                 sb.append(f.toMIPS());
             }
+            sb.append("\nfin:\nli $v0, 10\nsyscall"); //Fin du programme on redonne la main au système
         } else { //Sinon c'est une fonction (pas main)
             for (ArbreAbstrait i : programme) {
                 sb.append(i.toMIPS());
             }
         }
+
         return sb.toString();
     }
 
