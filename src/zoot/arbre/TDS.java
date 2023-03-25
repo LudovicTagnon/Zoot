@@ -4,15 +4,20 @@ import zoot.arbre.declarations.Entree;
 import zoot.exceptions.DoubleDeclarationException;
 import zoot.exceptions.NonDeclarerException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TDS {
 
     private static TDS instance = new TDS();
-    private HashMap<Entree, Symbole> table ;
+    private int actuel; // Bloc actuel
+    private ArrayList<HashMap<Entree, Symbole>> bloc ; // Tableau de bloc
 
     private TDS() {
-        table = new HashMap<>(3);
+        HashMap <Entree, Symbole> table = new HashMap<>(3);
+        bloc = new ArrayList<>();
+        bloc.add(table); // On ajoute le bloc 0
+        actuel = 0; // On commence au bloc 0
     }
 
     public static TDS getInstance() {
@@ -20,6 +25,7 @@ public class TDS {
     }
 
     public void ajouter(Entree e, Symbole s) throws DoubleDeclarationException {
+        HashMap<Entree, Symbole> table = bloc.get(actuel);
         //Si la variable existe déjà, on lève une exception
         for (Entree entree : table.keySet()) {
             if (entree.getNom().equals(e.getNom())) { //compare les noms des Entrée
@@ -32,11 +38,16 @@ public class TDS {
     }
 
     public Symbole identifier(Entree e)  throws NonDeclarerException {
-        //Si la variable n'existe pas, on lève une exception
+
+        HashMap<Entree, Symbole> table;
         Symbole s = null;
-        for (Entree entree : table.keySet()) {
-            if (entree.getNom().equals(e.getNom())) { //compare les noms des Entrée
-                s = table.get(entree);
+        for (int i = 0; i<=actuel; i++) { // On parcourt les blocs (priorité au bloc actuel)
+            table = bloc.get(i);
+            //Si la variable n'existe pas, on lève une exception
+            for (Entree entree : table.keySet()) {
+                if (entree.getNom().equals(e.getNom())) { //compare les noms des Entrée
+                    s = table.get(entree);
+                }
             }
         }
 
@@ -48,14 +59,23 @@ public class TDS {
     }
 
     public int getTailleVariable() {
-        return table.size()*-4;
+        int cpt = 0;
+        for (HashMap<Entree, Symbole> table : bloc) {
+            cpt += table.size(); // On compte le nombre de variable dans chaque bloc
+        }
+        return cpt*-4;
     }
 
     public void  entreebloc() {
-        table = new HashMap<>();
+        actuel++;
+        if (actuel == 0) {
+            HashMap<Entree, Symbole> table = new HashMap<>(3);
+            bloc.add(table);
+        }
     }
 
     public void sortieBloc() {
-        table.clear();
+        bloc.remove(actuel);
+        actuel--;
     }
 }
