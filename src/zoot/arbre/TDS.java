@@ -26,7 +26,6 @@ public class TDS {
 
     public void ajouter(Entree e, Symbole s) throws DoubleDeclarationException {
         HashMap<Entree, Symbole> table = bloc.get(actuel);
-        System.out.println("Ajout de : " + e.getNom() + " dans le bloc : " + this.actuel);
         //Si la variable existe déjà, on lève une exception
         for (Entree entree : table.keySet()) {
             if (entree.getNom().equals(e.getNom())) { //compare les noms des Entrée
