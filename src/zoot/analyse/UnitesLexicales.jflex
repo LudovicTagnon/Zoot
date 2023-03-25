@@ -63,6 +63,8 @@ variable = [a-zA-Z][a-zA-z0-9]* //Vérifier si la regex correspond à l'enoncé
 
 ";"                    { return symbol(CodesLexicaux.POINTVIRGULE); }
 
+","                    { return symbol(CodesLexicaux.VIRGULE); }
+
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
 
 {csteB}                { return symbol(CodesLexicaux.CSTBOOLEENNE, yytext()); }

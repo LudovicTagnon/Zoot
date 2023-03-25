@@ -57,12 +57,12 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    DEBUT, FIN, POINTVIRGULE, ECRIRE, VARIABLES, EGALE, PARENTHESEOUVRANTE, PARENTHESEFERMANTE, FONCTIONS, RETOURNE;
+terminal Symbol    DEBUT, FIN, POINTVIRGULE, VIRGULE, ECRIRE, VARIABLES, EGALE, PARENTHESEOUVRANTE, PARENTHESEFERMANTE, FONCTIONS, RETOURNE;
 terminal String    CSTENTIERE, CSTBOOLEENNE, BOOLEEN,ENTIER, ID;
    
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG, LINST, VAR, LVAR, FCT, LFCT ; //FCT et LFCT à vérifier
+non terminal ArbreAbstrait PROG, LINST, VAR, LVAR, FCT, LFCT, PARAM, LPARAM  ; //FCT et LFCT à vérifier
 non terminal Instruction INST ;
 non terminal Expression EXP ;
 non terminal String TYPE ;
@@ -151,11 +151,29 @@ LFCT    ::=     LFCT:lfct FCT:f
                    RESULT = b ; :}
                 ;
 
-FCT     ::=     TYPE:t ID:id PARENTHESEOUVRANTE PARENTHESEFERMANTE DEBUT LINST:li FIN
+FCT     ::=     TYPE:t ID:id PARENTHESEOUVRANTE PARENTHESEFERMANTE DEBUT LINST:li FIN //fonction sans paramètres
                 {: try {
                     TDS.getInstance().ajouter( new EntreeFonction(id, 0, idleft+1), new Symbole(t)) ;
                     } catch (DoubleDeclarationException e) {
                         CollectExcept.getInstance().addException(e) ;
                     }
                    LFCT.getInstance().addFonction(new Fonction(id, li, idleft+1)) ; :}
+        |
+                TYPE:t ID:id PARENTHESEOUVRANTE LPARAM:lp PARENTHESEFERMANTE DEBUT LINST:li FIN //fonction avec paramètres
+                {: :}
                 ;
+
+LPARAM  ::=     LPARAM:lp VIRGULE PARAM:p  //liste paramètres d'une fonction
+                {: ((BlocDInstructions)lp).ajouter(p) ;
+                   RESULT = lp ; :}
+        |
+                PARAM:p
+                {: BlocDInstructions b = new BlocDInstructions(pleft + 1) ;
+                   b.ajouter(p) ;
+                   RESULT = b ; :}
+                ;
+
+PARAM   ::=     TYPE:t ID:id
+                {: //TODO: ajouter le paramètre à la table des symboles
+                 :}
+                 ;
