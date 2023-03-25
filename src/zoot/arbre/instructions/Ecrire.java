@@ -38,11 +38,11 @@ public class Ecrire extends Instruction {
                 if (exp.getType().equals("booleen")) { //variable booleenne
                     sys = 4; //Syscall pour afficher une chaine de caractères
                     mips += "lw $t0, "+exp.toMIPS()+"\n";
-                    mips += "beq $s0, $t0, Sinon"+exp.getNoLigne()+"\n";
-                    mips += "la $a0, faux\n";
+                    mips += "beq $s0, $t0, Sinon"+exp.getNoLigne()+"\n"; //$s0 = faux
+                    mips += "la $a0, vrai\n";
                     mips += "b FinSi"+exp.getNoLigne()+"\n";
                     mips += "Sinon"+exp.getNoLigne()+":"+"\n";
-                    mips += "la $a0, vrai\n";
+                    mips += "la $a0, faux\n";
                     mips += "FinSi"+exp.getNoLigne()+":"+"\n";
                 } else { //Variable entière
                     mips += "lw $v0, "+exp.toMIPS()+"\n";
@@ -56,10 +56,10 @@ public class Ecrire extends Instruction {
                 sys = 4; //Syscall pour afficher une chaine de caractères
                 mips += "move $t0, $v0\n";
                 mips += "beq $s0, $v0, Sinon"+exp.getNoLigne()+"\n";
-                mips += "la $a0, faux\n";
+                mips += "la $a0, vrai\n";
                 mips += "b FinSi"+exp.getNoLigne()+"\n";
                 mips += "Sinon"+exp.getNoLigne()+":"+"\n";
-                mips += "la $a0, vrai\n";
+                mips += "la $a0, faux\n";
                 mips += "FinSi"+exp.getNoLigne()+":"+"\n";
             }
         }

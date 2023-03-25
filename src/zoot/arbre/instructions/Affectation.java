@@ -36,13 +36,18 @@ public class Affectation extends Instruction{
 
         if (!exp.isFonc()) {
             if (exp.isConstante()) { //si exp est une constante
-                mips += "li ";
+                if (exp.getType().equals("booleen")) { //si exp est un booléen
+                    mips += "la "; //load
+                } else { //si exp est un entier
+                    mips += "li "; //load
+                }
+
             } else {
                 mips += "lw "; //load word si exp est une variable
             }
 
             mips += "$v0, " + exp.toMIPS(); //store la valeur dans v0
-            mips += "sw $v0, ";
+            mips += "\nsw $v0, ";
             mips += variable.toMIPS();
         } else { //si exp est une fonction
             mips += exp.toMIPS();
