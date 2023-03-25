@@ -42,7 +42,7 @@ public class Retourne extends Instruction {
         }
         //On vérifie que le type de retour de la fonction est le même que celui de l'expression
         try {
-            Symbole s = TDS.getInstance().identifier(new EntreeFonction(nom,0,0)); //ici les 0 n'ont pas d'importance
+            Symbole s = TDS.getInstance().identifier(new EntreeFonction(nom,0,exp.getNoLigne())); //ici les 0 n'ont pas d'importance
             if (!s.getType().equals(exp.getType())) {
                 throw new ReturnException(noLigne, "Le type de retour de la fonction ne correspond pas au type de l'expression");
             }
