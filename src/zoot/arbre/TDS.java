@@ -26,6 +26,7 @@ public class TDS {
 
     public void ajouter(Entree e, Symbole s) throws DoubleDeclarationException {
         HashMap<Entree, Symbole> table = bloc.get(actuel);
+        System.out.println("Ajout de : " + e.getNom() + " dans le bloc : " + this.actuel);
         //Si la variable existe déjà, on lève une exception
         for (Entree entree : table.keySet()) {
             if (entree.getNom().equals(e.getNom())) { //compare les noms des Entrée
@@ -33,21 +34,26 @@ public class TDS {
             }
         }
 
-        s.setDecalage(table.size()*-4); //décalage négatif pour les variables
-        table.put(e, s); // On met l'élément dans la table de hashage
+        s.setDecalage(getTailleVariable()); //décalage négatif pour les variables
+        bloc.get(s.getNumBloc()).put(e, s); // On met l'élément dans la table de hashage
     }
 
     public Symbole identifier(Entree e)  throws NonDeclarerException {
 
-        HashMap<Entree, Symbole> table;
+        HashMap<Entree, Symbole> table= bloc.get(0);
         Symbole s = null;
-        for (int i = 0; i<=actuel; i++) { // On parcourt les blocs (priorité au bloc actuel)
-            table = bloc.get(i);
-            //Si la variable n'existe pas, on lève une exception
-            for (Entree entree : table.keySet()) {
-                if (entree.getNom().equals(e.getNom())) { //compare les noms des Entrée
-                    s = table.get(entree);
-                }
+
+        //Si la variable n'existe pas, on lève une exception
+        for (Entree entree : table.keySet()) {
+            if (entree.getNom().equals(e.getNom())) { //compare les noms des Entrée
+                s = table.get(entree);
+            }
+        }
+
+        table = bloc.get(actuel);
+        for (Entree entree : table.keySet()) {
+            if (entree.getNom().equals(e.getNom())) { //compare les noms des Entrée
+                s = table.get(entree);
             }
         }
 
@@ -67,15 +73,29 @@ public class TDS {
     }
 
     public void  entreebloc() {
-        actuel++;
         if (actuel == 0) {
-            HashMap<Entree, Symbole> table = new HashMap<>(3);
+            HashMap<Entree, Symbole> table = new HashMap<>(5);
             bloc.add(table);
         }
+        actuel = bloc.size()-1; // On se place sur le dernier bloc
     }
 
     public void sortieBloc() {
-        bloc.remove(actuel);
-        actuel--;
+        actuel = 0; // On se replace sur le bloc 0
+    }
+
+    public int getBlocActuel() {
+        return actuel;
+    }
+
+    public int getNbrPar() { // On compte le nombre de paramètres du bloc actuel
+        int cpt = 0;
+        HashMap<Entree, Symbole> table = bloc.get(actuel);
+        for (Symbole s : table.values()) {
+            if (s.isParametre()) { // On vérifie si c'est un paramètre
+                cpt++;
+            }
+        }
+        return cpt;
     }
 }

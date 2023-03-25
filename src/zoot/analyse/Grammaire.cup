@@ -134,7 +134,7 @@ LVAR    ::=     LVAR:lvar VAR:var
 
 VAR     ::=     TYPE:t ID:id POINTVIRGULE
                 {: try {
-                        TDS.getInstance().ajouter( new EntreeVariable(id, idleft+1), new Symbole(t)) ;
+                        TDS.getInstance().ajouter( new EntreeVariable(id, idleft+1), new Symbole(t, TDS.getInstance().getBlocActuel())) ;
                    } catch (DoubleDeclarationException e) {
                         CollectExcept.getInstance().addException(e);
                    }
@@ -152,19 +152,29 @@ LFCT    ::=     LFCT:lfct FCT:f
                 ;
 
 FCT     ::=     TYPE:t ID:id PARENTHESEOUVRANTE PARENTHESEFERMANTE DEBUT LINST:li FIN //fonction sans paramètres
-                {: try {
-                    TDS.getInstance().ajouter( new EntreeFonction(id, 0, idleft+1), new Symbole(t)) ;
+                {:
+                    TDS.getInstance().entreebloc(); //on entre dans le bloc de la fonction
+                    try {
+                        TDS.getInstance().ajouter( new EntreeFonction(id, 0, idleft+1), new SymboleFct(t)) ;
                     } catch (DoubleDeclarationException e) {
                         CollectExcept.getInstance().addException(e) ;
                     }
-                   LFCT.getInstance().addFonction(new Fonction(id, li, idleft+1)) ; :}
+                   LFCT.getInstance().addFonction(new Fonction(id, li, idleft+1)) ;
+                   TDS.getInstance().sortieBloc(); :}
         |
                 TYPE:t ID:id PARENTHESEOUVRANTE LPARAM:lp PARENTHESEFERMANTE DEBUT LINST:li FIN //fonction avec paramètres
-                {: :}
+                {: try {
+                       TDS.getInstance().ajouter( new EntreeFonction(id, 0, idleft+1), new SymboleFct(t)) ;
+                   } catch (DoubleDeclarationException e) {
+                       CollectExcept.getInstance().addException(e) ;
+                   }
+                   LFCT.getInstance().addFonction(new Fonction(id, li, idleft+1)) ;
+                   TDS.getInstance().sortieBloc();
+                :}
                 ;
 
 LPARAM  ::=     LPARAM:lp VIRGULE PARAM:p  //liste paramètres d'une fonction
-                {: ((BlocDInstructions)lp).ajouter(p) ;
+                {: ((BlocDInstructions)lp).ajouter(p) ;;
                    RESULT = lp ; :}
         |
                 PARAM:p
@@ -174,6 +184,11 @@ LPARAM  ::=     LPARAM:lp VIRGULE PARAM:p  //liste paramètres d'une fonction
                 ;
 
 PARAM   ::=     TYPE:t ID:id
-                {: //TODO: ajouter le paramètre à la table des symboles
+                {:  TDS.getInstance().entreebloc();
+                    try {
+                        TDS.getInstance().ajouter( new EntreeVariable(id, idleft+1), new Symbole(t, TDS.getInstance().getBlocActuel())) ;
+                    } catch (DoubleDeclarationException e) {
+                        CollectExcept.getInstance().addException(e) ;
+                    }
                  :}
                  ;
