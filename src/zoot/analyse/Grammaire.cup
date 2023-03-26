@@ -62,7 +62,7 @@ terminal String    CSTENTIERE, CSTBOOLEENNE, BOOLEEN,ENTIER, ID;
    
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG, LINST, VAR, LVAR, FCT, LFCT, PARAM, LPARAM  ; //FCT et LFCT à vérifier
+non terminal ArbreAbstrait PROG, LINST, VAR, LVAR, FCT, LFCT, PARAM, LPARAM, PAR_APL  ;
 non terminal Instruction INST ;
 non terminal Expression EXP ;
 non terminal String TYPE ;
@@ -113,6 +113,9 @@ EXP    ::=     CSTENTIERE:c
         |
                 ID:id PARENTHESEOUVRANTE PARENTHESEFERMANTE
                 {: RESULT = new AppelFonc(new EntreeFonction(id, 0, idleft+1), idleft + 1) ; :}
+        |
+                ID:id PARENTHESEOUVRANTE PAR_APL PARENTHESEFERMANTE
+                {: RESULT = new AppelFonc(new EntreeFonction(id, 1, idleft+1), idleft + 1) ; :}
                 ;
 
 TYPE    ::=     BOOLEEN
@@ -194,3 +197,15 @@ PARAM   ::=     TYPE:t ID:id
 
                  :}
                  ;
+
+PAR_APL ::=     PAR_APL:pa VIRGULE EXP:e  //liste paramètres d'une fonction
+                {: ((BlocDInstructions)pa).ajouter(e) ;
+                    LFCT.getInstance().stockerParamsApl(e);
+                   RESULT = pa ; :}
+        |
+                EXP:e
+                {: BlocDInstructions b = new BlocDInstructions(eleft + 1) ;
+                   b.ajouter(e) ;
+                   LFCT.getInstance().stockerParamsApl(e);
+                   RESULT = b ; :}
+                ;
