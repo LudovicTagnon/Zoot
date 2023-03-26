@@ -20,8 +20,8 @@ public class Fonction extends ArbreAbstrait{
         super(n);
         nom = idf;
         instruction = inst;
-        label = idf + "_l" + n;
         params = LFCT.getInstance().destockParams();
+        label = idf + "_" + params.size();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Fonction extends ArbreAbstrait{
 
     @Override
     public String toMIPS() {
-        String mips = "\n" + nom + ":\n";
+        String mips = "\n" + label + ":\n";
         mips += instruction.toMIPS();
         return mips;
     }

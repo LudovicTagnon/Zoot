@@ -1,11 +1,13 @@
 package zoot.arbre;
 
 import zoot.arbre.declarations.Entree;
+import zoot.arbre.declarations.EntreeFonction;
 import zoot.exceptions.DoubleDeclarationException;
 import zoot.exceptions.NonDeclarerException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class TDS {
 
@@ -42,7 +44,6 @@ public class TDS {
         HashMap<Entree, Symbole> table= bloc.get(0);
         Symbole s = null;
 
-        //Si la variable n'existe pas, on lève une exception
         for (Entree entree : table.keySet()) {
             if (entree.getNom().equals(e.getNom())) { //compare les noms des Entrée
                 s = table.get(entree);
@@ -51,7 +52,26 @@ public class TDS {
 
         table = bloc.get(actuel);
         for (Entree entree : table.keySet()) {
-            if (entree.getNom().equals(e.getNom())) { //compare les noms des Entrée
+            if (entree.getNom().equals(e.getNom())) { //compare les noms des Entrées
+                s = table.get(entree);
+            }
+        }
+
+        if (s == null) {
+            throw new NonDeclarerException(e);
+        }
+
+        return s;
+    }
+
+    public Symbole identifier(EntreeFonction e, int nbPar) throws NonDeclarerException { //surcharge de la méthode identifier pour les fonctions
+        HashMap<Entree, Symbole> table= bloc.get(0);
+        Symbole s = null;
+
+        for (Map.Entry<Entree, Symbole> row : table.entrySet()) {
+            Entree entree = row.getKey();
+            Symbole symbole = row.getValue();
+            if (entree.getNom().equals(e.getNom()) && symbole.getNbParams() == nbPar) { //compare les noms des Entrées et le nbr de paramètres
                 s = table.get(entree);
             }
         }

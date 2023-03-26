@@ -1,8 +1,10 @@
 package zoot.arbre.expressions;
 
 import zoot.arbre.Symbole;
+import zoot.arbre.SymboleFct;
 import zoot.arbre.TDS;
 import zoot.arbre.declarations.Entree;
+import zoot.arbre.declarations.EntreeFonction;
 import zoot.arbre.declarations.LFCT;
 
 import java.util.ArrayList;
@@ -10,11 +12,11 @@ import java.util.ArrayList;
 public class AppelFonc extends Expression{
 
     //Similaire à Idf
-    Entree e;
-    Symbole s;
+    EntreeFonction e;
+    SymboleFct s;
     ArrayList<Expression> params; //Paramètres d'une fonction lors de son appel
 
-    public AppelFonc(Entree entree, int n) {
+    public AppelFonc(EntreeFonction entree, int n) {
         super(n);
         e = entree;
         params = LFCT.getInstance().destockParamsApl(); //On récupère les paramètres de l'appel de fonction
@@ -22,7 +24,7 @@ public class AppelFonc extends Expression{
 
     @Override
     public void verifier() {
-        s = TDS.getInstance().identifier(e);
+        s = (SymboleFct) TDS.getInstance().identifier(e);
     }
 
     @Override
@@ -45,8 +47,8 @@ public class AppelFonc extends Expression{
             mips += "addi $sp,$sp,"+params.size()+"\n"; //Décalage du pointeur de pile
         }
 
-        mips += "\n#Saut vers une fonction";
-        mips += "\njal "+e.getNom()+"_"+e.getNoLigne()+"\n";
+        mips += "#Saut vers une fonction";
+        mips += "\njal "+e.getNom()+"_"+s.getNbParams()+"\n";
         mips += "#Load registres\n";
         mips += "lw $s1,4($sp)\n"; //Restauration du registre $s1
         mips += "lw $ra,8($sp)\n"; //Restauration du registre $ra
