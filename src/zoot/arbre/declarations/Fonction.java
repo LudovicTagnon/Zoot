@@ -7,6 +7,7 @@ import zoot.exceptions.CollectExcept;
 import zoot.exceptions.ReturnException;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Fonction extends ArbreAbstrait{
 
@@ -47,6 +48,20 @@ public class Fonction extends ArbreAbstrait{
     @Override
     public String toMIPS() {
         String mips = "\n" + label + ":\n";
+
+        int bornInf = Integer.MAX_VALUE; //infinit
+        for (Symbole symbole : params.values()){ //on cherche le décalage le plus petit
+            if (symbole.getDecalage() < bornInf){
+                bornInf = symbole.getDecalage();
+            }
+        }
+
+        for (int i = 0; i < params.size(); i++) { //on stocke les paramètres dans la pile
+            mips += "lw $v0, 4($sp)\n";
+            mips += "addi $sp,$sp, 4\n";
+            mips += "sw $v0, " + bornInf + "($s7)\n";
+        }
+
         mips += instruction.toMIPS();
         return mips;
     }

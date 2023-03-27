@@ -204,12 +204,14 @@ LPARAM  ::=     LPARAM:lp VIRGULE PARAM:p  //liste paramètres d'une fonction
 
 PARAM   ::=     TYPE:t ID:id
                 {:  TDS.getInstance().entreebloc();
+                    Entree e = new EntreeVariable(id, idleft+1) ;
+                    Symbole s = new Symbole(t, TDS.getInstance().getBlocActuel()) ;
                     try {
-                        TDS.getInstance().ajouter( new EntreeVariable(id, idleft+1), new Symbole(t, TDS.getInstance().getBlocActuel())) ;
-                    } catch (DoubleDeclarationException e) {
-                        CollectExcept.getInstance().addException(e) ;
+                        TDS.getInstance().ajouter(e, s) ;
+                    } catch (DoubleDeclarationException ex) {
+                        CollectExcept.getInstance().addException(ex) ;
                     }
-                    LFCT.getInstance().stockerParams(new EntreeVariable(id, idleft+1), new Symbole(t, TDS.getInstance().getBlocActuel())) ;
+                    LFCT.getInstance().stockerParams(e, s);
 
                  :}
                  ;

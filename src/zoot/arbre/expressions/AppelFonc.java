@@ -23,7 +23,7 @@ public class AppelFonc extends Expression{
 
     @Override
     public void verifier() {
-        s = (SymboleFct) TDS.getInstance().identifier(e);
+        s = (SymboleFct) TDS.getInstance().identifier(e, params.size());
     }
 
     @Override
@@ -33,7 +33,6 @@ public class AppelFonc extends Expression{
         mips += "sw $s1,-4($sp)\n"; //Sauvegarde du registre $s1
         mips += "addi $sp,$sp,-8\n"; //Décalage du pointeur de pile
 
-        //Todo: verifier
         if (params.size() > 0) {
             int cpt = params.size(); //Compteur pour les paramètres
             mips += "#Paramètres de l'appel de fonction\n";
