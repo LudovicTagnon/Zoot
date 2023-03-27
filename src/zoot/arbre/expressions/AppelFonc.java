@@ -49,7 +49,7 @@ public class AppelFonc extends Expression{
                 } else {
                     mips += "lw $v0,"+param.toMIPS()+"\n"; //Chargement de la variable dans le registre $v0
                 }
-                mips += "sw $v0,"+cpt+"($sp)\n"; //Sauvegarde du registre $v0
+                mips += "sw $v0,"+cpt*-4+"($sp)\n"; //Sauvegarde du registre $v0
             }
             mips += "addi $sp,$sp,"+params.size()*-4+"\n"; //Décalage du pointeur de pile
         }
