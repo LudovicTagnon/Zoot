@@ -1,13 +1,12 @@
 package zoot.arbre.expressions;
 
-import zoot.arbre.Symbole;
 import zoot.arbre.SymboleFct;
 import zoot.arbre.TDS;
-import zoot.arbre.declarations.Entree;
 import zoot.arbre.declarations.EntreeFonction;
 import zoot.arbre.declarations.LFCT;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class AppelFonc extends Expression{
 
@@ -38,13 +37,22 @@ public class AppelFonc extends Expression{
         if (params.size() > 0) {
             int cpt = params.size(); //Compteur pour les paramètres
             mips += "#Paramètres de l'appel de fonction\n";
-            for (Expression param : params) {
+            ArrayList<Expression> cpy = new ArrayList<Expression>(params); //Copie de la liste des paramètres
+            Collections.reverse(cpy); //On inverse la liste pour avoir les paramètres dans le bon ordre
+            for (Expression param : cpy) {
                 cpt--;
-                mips += param.toMIPS();
+                if (param.isConstante()){
+                    if (param.getType().equals("booleen")) {
+                        mips += "la $v0,"+param.toMIPS()+"\n";
+                    } else {
+                        mips += "li $v0,"+param.toMIPS()+"\n";
+                    }
+                } else {
+                    mips += "lw $v0,"+param.toMIPS()+"\n"; //Chargement de la variable dans le registre $v0
+                }
                 mips += "sw $v0,"+cpt+"($sp)\n"; //Sauvegarde du registre $v0
-                mips += "addi $sp,$sp,-4\n"; //Décalage du pointeur de pile
             }
-            mips += "addi $sp,$sp,"+params.size()+"\n"; //Décalage du pointeur de pile
+            mips += "addi $sp,$sp,"+params.size()*-4+"\n"; //Décalage du pointeur de pile
         }
 
         mips += "#Saut vers une fonction";
