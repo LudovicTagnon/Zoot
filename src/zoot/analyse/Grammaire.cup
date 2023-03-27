@@ -162,11 +162,11 @@ FCT     ::=     TYPE:t ID:id PARENTHESEOUVRANTE PARENTHESEFERMANTE DEBUT LINST:l
                     } catch (DoubleDeclarationException e) {
                         CollectExcept.getInstance().addException(e) ;
                     }
-                   LFCT.getInstance().addFonction(new Fonction(id, li, idleft+1)) ;
+                   LFCT.getInstance().addFonction(new Fonction(id, li, TDS.getInstance().getBlocActuel(), idleft+1)) ;
                    TDS.getInstance().sortieBloc(); :}
         |
                 TYPE:t ID:id PARENTHESEOUVRANTE LPARAM:lp PARENTHESEFERMANTE DEBUT LINST:li FIN //fonction avec paramètres
-                {: Fonction f = new Fonction(id, li, idleft+1) ;
+                {: Fonction f = new Fonction(id, li, TDS.getInstance().getBlocActuel(), idleft+1) ;
                    LFCT.getInstance().addFonction(f) ;
                    try {
                        SymboleFct s = new SymboleFct(t) ;
@@ -179,7 +179,7 @@ FCT     ::=     TYPE:t ID:id PARENTHESEOUVRANTE PARENTHESEFERMANTE DEBUT LINST:l
                 :}
         |
                 TYPE:t ID:id PARENTHESEOUVRANTE LPARAM:lp PARENTHESEFERMANTE VARIABLES LVAR:lvar DEBUT LINST:li FIN //fonction avec paramètres et variables locales
-                {:  Fonction f = new Fonction(id, li, idleft+1) ;
+                {:  Fonction f = new Fonction(id, li, TDS.getInstance().getBlocActuel(), idleft+1) ;
                      LFCT.getInstance().addFonction(f) ;
                      try {
                          SymboleFct s = new SymboleFct(t) ;

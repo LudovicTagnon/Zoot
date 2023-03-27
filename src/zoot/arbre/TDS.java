@@ -61,6 +61,8 @@ public class TDS {
             throw new NonDeclarerException(e);
         }
 
+        System.out.println(actuel);
+        System.out.println("identifier :" + e.getNom() + " : " + s.getType());
         return s;
     }
 
@@ -105,6 +107,10 @@ public class TDS {
 
     public int getBlocActuel() {
         return actuel;
+    }
+
+    public void setBlocActuel(int i) {
+        actuel = i;
     }
 
     public int getNbrPar() { // On compte le nombre de paramètres du bloc actuel

@@ -37,7 +37,9 @@ public class BlocDInstructions extends ArbreAbstrait {
             Iterator<Fonction> it = LFCT.getInstance().getIterator();
             while (it.hasNext()) { //On vérifie les fonctions
                 Fonction f = it.next();
+                TDS.getInstance().setBlocActuel(f.getBloc());
                 f.verifier();
+                TDS.getInstance().setBlocActuel(0);
             }
             LFCT.getInstance().setDebut(true); //On remet le début à true pour toMips()
         }
@@ -64,7 +66,9 @@ public class BlocDInstructions extends ArbreAbstrait {
             Iterator<Fonction> it = LFCT.getInstance().getIterator();
             while (it.hasNext()) {
                 Fonction f = it.next();
+                TDS.getInstance().setBlocActuel(f.getBloc());
                 sb.append(f.toMIPS());
+                TDS.getInstance().setBlocActuel(0);
             }
             sb.append("\nfin:\nli $v0, 10\nsyscall"); //Fin du programme on redonne la main au système
         } else { //Sinon c'est une fonction (pas main)

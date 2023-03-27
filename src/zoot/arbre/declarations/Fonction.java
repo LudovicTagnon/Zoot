@@ -16,13 +16,15 @@ public class Fonction extends ArbreAbstrait{
     private String label;
 
     private HashMap<Entree, Symbole> params;
+    private int bloc;
 
-    public Fonction(String idf, ArbreAbstrait inst, int n) {
+    public Fonction(String idf, ArbreAbstrait inst, int b, int n) {
         super(n);
         nom = idf;
         instruction = inst;
         params = LFCT.getInstance().destockParams();
         label = idf + "_" + params.size();
+        bloc = b;
     }
 
     @Override
@@ -76,5 +78,9 @@ public class Fonction extends ArbreAbstrait{
 
     public int getNbParams(){
         return params.size();
+    }
+
+    public int getBloc(){
+        return bloc;
     }
 }
