@@ -192,11 +192,11 @@ FCT     ::=     TYPE:t ID:id PARENTHESEOUVRANTE PARENTHESEFERMANTE DEBUT LINST:l
                    :}
                 ;
 
-LPARAM  ::=     LPARAM:lp VIRGULE PARAM:p  //liste paramètres d'une fonction
+LPARAM  ::=     LPARAM:lp PARAM:p  //liste paramètres d'une fonction
                 {: ((BlocDInstructions)lp).ajouter(p) ;;
                    RESULT = lp ; :}
         |
-                PARAM:p
+                PARAM:p POINTVIRGULE
                 {: BlocDInstructions b = new BlocDInstructions(pleft + 1) ;
                    b.ajouter(p) ;
                    RESULT = b ; :}
