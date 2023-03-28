@@ -9,7 +9,7 @@ public class SymboleFct extends Symbole {
 
     @Override
     public boolean isParametre() {
-        return true;
+        return false;
     }
 
     //Getters and setters

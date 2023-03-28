@@ -61,8 +61,6 @@ public class TDS {
             throw new NonDeclarerException(e);
         }
 
-        System.out.println(actuel);
-        System.out.println("identifier :" + e.getNom() + " : " + s.getType());
         return s;
     }
 
@@ -122,5 +120,17 @@ public class TDS {
             }
         }
         return cpt;
+    }
+
+    public String toString() {
+        String s = "";
+        for (HashMap<Entree, Symbole> table : bloc) {
+            for (Map.Entry<Entree, Symbole> row : table.entrySet()) {
+                Entree entree = row.getKey();
+                Symbole symbole = row.getValue();
+                s += entree.getNom() + " " + symbole.getDecalage() + " " + symbole.getType() + " " + symbole.getNumBloc() + "\n";
+            }
+        }
+        return s;
     }
 }
