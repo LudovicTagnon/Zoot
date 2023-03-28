@@ -56,10 +56,14 @@ public class Retourne extends Instruction {
     public String toMIPS() {
         String mips = "#Retourne\n";
         if (!exp.isFonc()) {
-            if (exp.getType().equals("booleen")) {
-                mips += "la $v0, " + exp.toMIPS() + "\n";
+            if (exp.isConstante()) {
+                if (exp.getType().equals("booleen")) {
+                    mips += "la $v0, " + exp.toMIPS() + "\n";
+                } else {
+                    mips += "li $v0, " + exp.toMIPS() + "\n";
+                }
             } else {
-                mips += "li $v0, " + exp.toMIPS() + "\n";
+                mips += "lw $v0, " + exp.toMIPS();
             }
         } else {
             mips += exp.toMIPS();
