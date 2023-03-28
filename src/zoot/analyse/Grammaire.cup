@@ -154,7 +154,7 @@ LFCT    ::=     LFCT:lfct FCT:f
                    RESULT = b ; :}
                 ;
 
-FCT     ::=     TYPE:t ID:id PARENTHESEOUVRANTE PARENTHESEFERMANTE DEBUT LINST:li FIN //fonction sans paramètres
+FCT     ::=     TYPE:t ID:id PARENTHESEOUVRANTE PARENTHESEFERMANTE VARIABLES DEBUT LINST:li FIN //fonction sans paramètres
                 {:
                     TDS.getInstance().entreebloc(); //on entre dans le bloc de la fonction
                     try {
