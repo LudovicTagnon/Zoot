@@ -145,9 +145,8 @@ Class SymboleFct {
 }
 
 Class TDS {
-    TDS instance
     HashMap<Entree, Symbole> table
-
+    int actuel
     static TDS getInstance()
     void ajouter(Entree e, Symbole s)
     Symbole identifier(Entree e)
@@ -164,6 +163,8 @@ Class BlocDInstructions {
     String toString()
 }
 
+SymboleFct -|> Symbole
+
 Idf -- "1" Entree
 
 Instruction --|> ArbreAbstrait
@@ -179,7 +180,7 @@ Idf -- "1" Entree
 Idf -- "1" Symbole
 
 AppelFonc -- "1" EntreeFonction
-
+TDS -- "1" TDS : "instance"
 
 
 

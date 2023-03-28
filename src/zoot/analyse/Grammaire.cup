@@ -196,13 +196,13 @@ LPARAM  ::=     LPARAM:lp PARAM:p  //liste paramètres d'une fonction
                 {: ((BlocDInstructions)lp).ajouter(p) ;;
                    RESULT = lp ; :}
         |
-                PARAM:p POINTVIRGULE
+                PARAM:p
                 {: BlocDInstructions b = new BlocDInstructions(pleft + 1) ;
                    b.ajouter(p) ;
                    RESULT = b ; :}
                 ;
 
-PARAM   ::=     TYPE:t ID:id
+PARAM   ::=     TYPE:t ID:id POINTVIRGULE
                 {:  TDS.getInstance().entreebloc();
                     Entree e = new EntreeVariable(id, idleft+1) ;
                     Symbole s = new Symbole(t, TDS.getInstance().getBlocActuel()) ;
