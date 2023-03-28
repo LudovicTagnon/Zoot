@@ -23,6 +23,7 @@ public class Retourne extends Instruction {
     @Override
     public void verifier() {
         exp.verifier();
+
         try { //On vérifie qu'on est bien dans une fonction
             if (LFCT.getInstance().getDebut()) {
                 throw new ReturnException(noLigne, "Retourne hors d'une fonction");
