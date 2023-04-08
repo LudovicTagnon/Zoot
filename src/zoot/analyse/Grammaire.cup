@@ -62,7 +62,7 @@ terminal String    CSTENTIERE, CSTBOOLEENNE, BOOLEEN,ENTIER, ID;
    
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG, LINST, VAR, LVAR, FCT, LFCT, PARAM, LPARAM, PAR_APL  ;
+non terminal ArbreAbstrait PROG, LINST, VAR, LVAR, FCT, LFCT, PARAM, LPARAM, PAR_APL, PARENTHESES  ;
 non terminal Instruction INST ;
 non terminal Expression EXP ;
 non terminal String TYPE ;
@@ -154,9 +154,8 @@ LFCT    ::=     LFCT:lfct FCT:f
                    RESULT = b ; :}
                 ;
 
-FCT     ::=     TYPE:t ID:id PARENTHESEOUVRANTE PARENTHESEFERMANTE VARIABLES DEBUT LINST:li FIN //fonction sans paramètres
+FCT     ::=     TYPE:t ID:id PARENTHESES VARIABLES DEBUT LINST:li FIN //fonction sans paramètres
                 {:
-                    TDS.getInstance().entreebloc(); //on entre dans le bloc de la fonction
                     try {
                         TDS.getInstance().ajouter( new EntreeFonction(id, 0, idleft+1), new SymboleFct(t)) ;
                     } catch (DoubleDeclarationException e) {
@@ -165,9 +164,8 @@ FCT     ::=     TYPE:t ID:id PARENTHESEOUVRANTE PARENTHESEFERMANTE VARIABLES DEB
                    LFCT.getInstance().addFonction(new Fonction(id, li, TDS.getInstance().getBlocActuel(), idleft+1)) ;
                    TDS.getInstance().sortieBloc(); :}
         |
-                TYPE:t ID:id PARENTHESEOUVRANTE PARENTHESEFERMANTE VARIABLES LVAR:lvar DEBUT LINST:li FIN //fonction sans paramètres avec variables locales
+                TYPE:t ID:id PARENTHESES VARIABLES LVAR:lvar DEBUT LINST:li FIN //fonction sans paramètres avec variables locales
                         {:
-                            TDS.getInstance().entreebloc(); //on entre dans le bloc de la fonction
                             try {
                                 TDS.getInstance().ajouter( new EntreeFonction(id, 0, idleft+1), new SymboleFct(t)) ;
                             } catch (DoubleDeclarationException e) {
@@ -203,9 +201,8 @@ FCT     ::=     TYPE:t ID:id PARENTHESEOUVRANTE PARENTHESEFERMANTE VARIABLES DEB
                      TDS.getInstance().sortieBloc();
                    :}
                 ;
-
 LPARAM  ::=     LPARAM:lp PARAM:p  //liste paramètres d'une fonction
-                {: ((BlocDInstructions)lp).ajouter(p) ;;
+                {: ((BlocDInstructions)lp).ajouter(p) ;
                    RESULT = lp ; :}
         |
                 PARAM:p
@@ -238,4 +235,8 @@ PAR_APL ::=     PAR_APL:pa VIRGULE EXP:e  //liste paramètres d'une fonction
                    b.ajouter(e) ;
                    LFCT.getInstance().stockerParamsApl(e);
                    RESULT = b ; :}
+                ;
+
+PARENTHESES ::= PARENTHESEOUVRANTE PARENTHESEFERMANTE
+                {: TDS.getInstance().entreebloc(); //on entre dans le bloc de la fonction :}
                 ;
