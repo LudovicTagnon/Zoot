@@ -65,6 +65,18 @@ variable = [a-zA-Z][a-zA-z0-9]* //Vérifier si la regex correspond à l'enoncé
 
 ","                    { return symbol(CodesLexicaux.VIRGULE); }
 
+"si"                    { return symbol(CodesLexicaux.SI); }
+
+"alors"                 { return symbol(CodesLexicaux.ALORS); }
+
+"finsi"                 { return symbol(CodesLexicaux.FINSI); }
+
+"repeter"               { return symbol(CodesLexicaux.REPETER); }
+
+"jusqua"               { return symbol(CodesLexicaux.JUSQUA); }
+
+"finrepeter"            { return symbol(CodesLexicaux.FINREPETER); }
+
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
 
 {csteB}                { return symbol(CodesLexicaux.CSTBOOLEENNE, yytext()); }
