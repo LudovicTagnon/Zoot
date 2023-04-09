@@ -77,6 +77,20 @@ variable = [a-zA-Z][a-zA-z0-9]* //Vérifier si la regex correspond à l'enoncé
 
 "finrepeter"            { return symbol(CodesLexicaux.FINREPETER); }
 
+"+"                    { return symbol(CodesLexicaux.PLUS); }
+
+"*"                   { return symbol(CodesLexicaux.FOIS); }
+
+"<"                    { return symbol(CodesLexicaux.INFERIEUR); }
+
+"=="                   { return symbol(CodesLexicaux.EGALITE); }
+
+"=!"                  { return symbol(CodesLexicaux.DIFFERENT); }
+
+"et"                   { return symbol(CodesLexicaux.ET); }
+
+"ou"                   { return symbol(CodesLexicaux.OU); }
+
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
 
 {csteB}                { return symbol(CodesLexicaux.CSTBOOLEENNE, yytext()); }
