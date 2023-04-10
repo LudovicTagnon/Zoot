@@ -136,7 +136,7 @@ EXP    ::=     CSTENTIERE:c
                 {: RESULT = new Add(eg, ed, egleft+1); :}
         |
                 EXP:eg FOIS EXP:ed
-                {: :} //TODO: Classe Mul
+                {: RESULT = new Mult(eg, ed, egleft+1); :}
         |
                 EXP:eg INFERIEUR EXP:ed
                 {:  :} //TODO: Classe Inf ?
