@@ -3,6 +3,7 @@ package zoot.analyse ;
 import java.util.*;
 import zoot.arbre.* ;
 import zoot.arbre.expressions.* ;
+import zoot.arbre.expressions.binaire.*;
 import zoot.arbre.instructions.* ;
 import zoot.arbre.declarations.* ;
 import zoot.exceptions.*;
@@ -132,7 +133,7 @@ EXP    ::=     CSTENTIERE:c
                 {: RESULT = new AppelFonc(new EntreeFonction(id, 1, idleft+1), idleft + 1) ; :}
         |
                 EXP:eg PLUS EXP:ed
-                {:  :} //TODO: Classe Add
+                {: RESULT = new Add(eg, ed, egleft+1); :}
         |
                 EXP:eg FOIS EXP:ed
                 {: :} //TODO: Classe Mul

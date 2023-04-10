@@ -32,7 +32,7 @@ public class Ecrire extends Instruction {
                         mips += "faux\n";
                     }
                 } else { //constante entière
-                    mips += "li $a0, "+exp.getNom()+"\n";
+                    mips += "li $a0, "+exp.toMIPS()+"\n";
                 }
             } else { //Si l'expression est une variable
                 if (exp.getType().equals("booleen")) { //variable booleenne
