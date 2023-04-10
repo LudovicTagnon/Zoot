@@ -139,7 +139,7 @@ EXP    ::=     CSTENTIERE:c
                 {: RESULT = new Mult(eg, ed, egleft+1); :}
         |
                 EXP:eg INFERIEUR EXP:ed
-                {:  :} //TODO: Classe Inf ?
+                {: RESULT = new Inf(eg, ed, edleft+1); :}
         |
                 EXP:eg EGALITE EXP:ed
                 {:  :} //TODO: Classe Egal ?
