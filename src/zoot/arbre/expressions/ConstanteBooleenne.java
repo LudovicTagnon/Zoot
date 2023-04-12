@@ -10,7 +10,7 @@ public class ConstanteBooleenne extends Constante{
     public String toMIPS() {
         if(cste.equals("vrai")){
             return "1\n";
-        }else if (cste.equals("faux")){
+        } else if (cste.equals("faux")){
             return "0\n";
         } else { //N'est jamais atteint normalement (supprimé ?)
             throw new IllegalArgumentException("La constante booleenne doit être vrai ou faux");

@@ -85,7 +85,7 @@ variable = [a-zA-Z][a-zA-z0-9]* //Vérifier si la regex correspond à l'enoncé
 
 "=="                   { return symbol(CodesLexicaux.EGALITE); }
 
-"=!"                  { return symbol(CodesLexicaux.DIFFERENT); }
+"!="                  { return symbol(CodesLexicaux.DIFFERENT); }
 
 "et"                   { return symbol(CodesLexicaux.ET); }
 

@@ -6,7 +6,7 @@ import zoot.exceptions.TypeIncompatibleException;
 
 public class Inf extends Binaire{
 
-    String label = "inf" + getNoLigne();
+    private String label = "inf" + getNoLigne(); //TODO: peut poser problème si plusieurs inf sur la même ligne
     public Inf(Expression eg, Expression ed, int n) {
         super(eg, ed, n);
     }
@@ -22,7 +22,6 @@ public class Inf extends Binaire{
         expDroite.verifier();
         try{
             if (!expGauche.getType().equals("entier") || !expDroite.getType().equals("entier")) {
-                System.out.println("Erreur de type : impossible d'effectuer une addition entre " + expGauche.getType() + " et " + expDroite.getType() + " à la ligne " + noLigne + ".");
                 throw new TypeIncompatibleException(expGauche, expDroite, noLigne);
             }
         }catch (TypeIncompatibleException e){
@@ -55,17 +54,17 @@ public class Inf extends Binaire{
         mips += "#Dépile \nadd $sp,$sp,4\nlw $t8,($sp)\n";
         mips += "#Branch if less than\n";
         mips += "ble $v0,$t8,si_"+label+"\n";
-        mips += "li $v0, 0\n";
+        mips += "la $v0, vrai\n";
         mips += "j end_"+label+"\n";
         mips += "si_" +label+":\n";
-        mips += "li $v0, 1\n";
+        mips += "la $v0, faux\n";
         mips += "end_"+label+":\n";
         return mips;
     }
 
     @Override
     public String getType() {
-        return "booleen";
+        return expGauche.getType();
     }
 
     @Override
@@ -76,5 +75,10 @@ public class Inf extends Binaire{
     @Override
     public boolean isFonc() {
         return expGauche.isFonc();
+    }
+
+    @Override
+    public boolean isComparaison() {
+        return true;
     }
 }

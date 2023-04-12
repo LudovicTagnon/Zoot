@@ -18,6 +18,10 @@ public abstract class Expression extends ArbreAbstrait {
         return false;
     }
 
+    public boolean isComparaison(){
+        return false;
+    }
+
     public abstract String getNom();
 
 }

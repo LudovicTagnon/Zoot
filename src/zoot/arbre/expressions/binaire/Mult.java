@@ -21,7 +21,6 @@ public class Mult extends Binaire{
         expDroite.verifier();
         try{
             if (!expGauche.getType().equals("entier") || !expDroite.getType().equals("entier")) {
-                System.out.println("Erreur de type : impossible d'effectuer une addition entre " + expGauche.getType() + " et " + expDroite.getType() + " à la ligne " + noLigne + ".");
                 throw new TypeIncompatibleException(expGauche, expDroite, noLigne);
             }
         }catch (TypeIncompatibleException e){

@@ -142,10 +142,10 @@ EXP    ::=     CSTENTIERE:c
                 {: RESULT = new Inf(eg, ed, edleft+1); :}
         |
                 EXP:eg EGALITE EXP:ed
-                {:  :} //TODO: Classe Egal ?
+                {: RESULT = new Egal(eg, ed, edleft+1, true); :} //TODO: Classe Egal ?
         |
                 EXP:eg DIFFERENT EXP:ed
-                {:  :} //TODO: Classe Egal ?
+                {: RESULT = new Egal(eg, ed, edleft+1, false); :} //TODO: Classe Egal ?
         |
                 EXP:eg ET EXP:ed
                 {:  :} //TODO: Classe Et ?
