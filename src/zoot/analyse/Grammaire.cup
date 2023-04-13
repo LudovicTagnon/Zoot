@@ -75,6 +75,8 @@ precedence left EGALITE;
 precedence left INFERIEUR;
 precedence left PLUS;
 precedence left FOIS;
+precedence left PARENTHESEOUVRANTE;
+precedence left PARENTHESEFERMANTE;
 
 /* ----------------------------Grammar Section-------------------- */
  
@@ -156,8 +158,11 @@ EXP    ::=     CSTENTIERE:c
                 NON EXP:e
                 {: RESULT = new Not(e, eleft+1); :}
         |
-                MOINS EXP:ed
-                {:  :}
+                MOINS EXP:e
+                {: RESULT = new Negatif(e, eleft+1); :}
+        |
+                PARENTHESEOUVRANTE EXP:e PARENTHESEFERMANTE
+                {: RESULT = new Parenthese(e, eleft+1); :}
                 ;
 
 TYPE    ::=     BOOLEEN
