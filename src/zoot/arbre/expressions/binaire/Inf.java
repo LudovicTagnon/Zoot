@@ -1,12 +1,13 @@
 package zoot.arbre.expressions.binaire;
 
+import zoot.arbre.TDS;
 import zoot.arbre.expressions.Expression;
 import zoot.exceptions.CollectExcept;
 import zoot.exceptions.TypeIncompatibleException;
 
 public class Inf extends Binaire{
 
-    private String label = "inf" + getNoLigne(); //TODO: peut poser problème si plusieurs inf sur la même ligne
+    private String label = "inf" + TDS.getInstance().getCpt();
     public Inf(Expression eg, Expression ed, int n) {
         super(eg, ed, n);
     }
@@ -18,6 +19,7 @@ public class Inf extends Binaire{
 
     @Override
     public void verifier() {
+
         expGauche.verifier();
         expDroite.verifier();
         try{

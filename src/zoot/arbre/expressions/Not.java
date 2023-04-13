@@ -1,12 +1,13 @@
 package zoot.arbre.expressions;
 
+import zoot.arbre.TDS;
 import zoot.exceptions.CollectExcept;
 import zoot.exceptions.TypeIncompatibleException;
 
 public class Not extends Expression{
 
     Expression exp;
-    String label = "not" + getNoLigne();
+    String label = "not" + TDS.getInstance().getCpt();
 
     public Not(Expression e, int n) {
         super(n);
@@ -15,6 +16,7 @@ public class Not extends Expression{
 
     @Override
     public void verifier() {
+
         exp.verifier();
         try {
             if (!exp.getResultType().equals("booleen")) {

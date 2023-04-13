@@ -14,6 +14,7 @@ public class TDS {
     private static TDS instance = new TDS();
     private int actuel; // Bloc actuel
     private ArrayList<HashMap<Entree, Symbole>> bloc ; // Tableau de bloc
+    private int cpt = 0; // Compteur d'étiquette
 
     private TDS() {
         HashMap <Entree, Symbole> table = new HashMap<>(3);
@@ -74,6 +75,7 @@ public class TDS {
             if (entree.getNom().equals(e.getNom()) && symbole.getNbParams() == nbPar) { //compare les noms des Entrées et le nbr de paramètres
                 s = table.get(entree);
             }
+
         }
 
         if (s == null) {
@@ -120,6 +122,10 @@ public class TDS {
             }
         }
         return cpt;
+    }
+
+    public int getCpt() {
+        return cpt++;
     }
 
     public String toString() {

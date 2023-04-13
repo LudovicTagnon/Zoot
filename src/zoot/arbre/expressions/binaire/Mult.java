@@ -19,6 +19,7 @@ public class Mult extends Binaire{
     public void verifier() {
         expGauche.verifier();
         expDroite.verifier();
+
         try{
             if (!expGauche.getType().equals("entier") || !expDroite.getType().equals("entier")) {
                 throw new TypeIncompatibleException(expGauche, expDroite, noLigne);

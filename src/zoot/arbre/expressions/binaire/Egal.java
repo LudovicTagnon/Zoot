@@ -1,16 +1,18 @@
 package zoot.arbre.expressions.binaire;
 
+import zoot.arbre.TDS;
 import zoot.arbre.expressions.Expression;
 import zoot.exceptions.CollectExcept;
 import zoot.exceptions.TypeIncompatibleException;
 
 public class Egal extends Binaire{
 
-    private String label = "egal" + getNoLigne();
+    private String label = "egal" + TDS.getInstance().getCpt();
     private boolean isEqual;
     public Egal(Expression eg, Expression ed, int n, boolean equal) {
         super(eg, ed, n);
         isEqual = equal;
+
     }
 
     @Override

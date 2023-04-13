@@ -13,6 +13,7 @@ public class Et extends Binaire{
         } else {
             operator = "or";
         }
+
     }
 
     @Override
