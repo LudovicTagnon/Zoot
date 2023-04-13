@@ -156,8 +156,8 @@ EXP    ::=     CSTENTIERE:c
                 NON EXP:e
                 {: RESULT = new Not(e, eleft+1); :}
         |
-                MOINS EXP:ed
-                {:  :}
+                MOINS EXP:e
+                {: RESULT = new Negatif(e, eleft+1); :}
                 ;
 
 TYPE    ::=     BOOLEEN
