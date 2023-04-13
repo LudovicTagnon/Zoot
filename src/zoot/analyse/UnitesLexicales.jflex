@@ -91,6 +91,10 @@ variable = [a-zA-Z][a-zA-z0-9]* //Vérifier si la regex correspond à l'enoncé
 
 "ou"                   { return symbol(CodesLexicaux.OU); }
 
+"non"                 { return symbol(CodesLexicaux.NON); }
+
+"-"                   { return symbol(CodesLexicaux.MOINS); }
+
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
 
 {csteB}                { return symbol(CodesLexicaux.CSTBOOLEENNE, yytext()); }

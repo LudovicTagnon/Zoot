@@ -5,7 +5,6 @@ import zoot.exceptions.CollectExcept;
 import zoot.exceptions.TypeIncompatibleException;
 
 public class Et extends Binaire{
-    private String label = "et" + getNoLigne();
     private String operator;
     public Et(Expression eg, Expression ed, int n, boolean and) {
         super(eg, ed, n);
@@ -59,13 +58,6 @@ public class Et extends Binaire{
 
         mips += "#Dépile \nadd $sp,$sp,4 \nlw $t8,($sp) \n";
         mips += operator+" $v0, $t8, $v0 \n";
-        mips += "move $t0, $v0\n";
-        mips += "beq $s0, $v0, Sinon" + label + "\n";
-        mips += "la $v0, vrai\n";
-        mips += "b FinSi" + label + "\n";
-        mips += "Sinon" + label + ":" + "\n";
-        mips += "la $v0, faux\n";
-        mips += "FinSi" + label + ":" + "\n";
         return mips;
     }
 

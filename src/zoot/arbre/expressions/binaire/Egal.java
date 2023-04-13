@@ -41,11 +41,11 @@ public class Egal extends Binaire{
         String sinon;
 
         if (isEqual) {
-            si = "faux";
-            sinon = "vrai";
+            si = "1";
+            sinon = "0";
         } else {
-            si = "vrai";
-            sinon = "faux";
+            si = "0";
+            sinon = "1";
         }
 
         String mips = expGauche.toMIPS();
@@ -71,10 +71,10 @@ public class Egal extends Binaire{
         mips += "#Dépile \nadd $sp,$sp,4\nlw $t8,($sp)\n";
         mips += "#Branch if equal\n";
         mips += "beq $v0,$t8,si_"+label+"\n";
-        mips += "la $v0, "+si+"\n";
+        mips += "li $v0, "+sinon+"\n";
         mips += "j end_"+label+"\n";
         mips += "si_" +label+":\n";
-        mips += "la $v0, "+sinon+"\n";
+        mips += "li $v0, "+si+"\n";
         mips += "end_"+label+":\n";
         return mips;
     }

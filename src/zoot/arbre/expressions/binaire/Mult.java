@@ -26,6 +26,7 @@ public class Mult extends Binaire{
         }catch (TypeIncompatibleException e){
             CollectExcept.getInstance().addException(e);
         }
+
     }
 
     @Override

@@ -26,6 +26,7 @@ public class Add extends Binaire{
             }
         }catch (TypeIncompatibleException e){
             CollectExcept.getInstance().addException(e);
+
         }
     }
 

@@ -11,6 +11,7 @@ public abstract class Binaire extends Expression {
         super(n);
         this.expGauche = eg;
         this.expDroite = ed;
+
     }
 
     @Override

@@ -66,26 +66,23 @@ public class Ecrire extends Instruction {
                     mips += "FinSi" + exp.getNoLigne() + ":" + "\n";
                 }
             }
-        } else{ //expression est une comparaison
-            if (exp.getResultType().equals("booleen")){
-                sys = 4; //Syscall pour afficher une chaine de caractères
-            }
+        } else{ //expression est un operateur
             if (!exp.isFonc()) {
                 if (exp.isConstante()) {
-                    if (exp.getType().equals("booleen")) { //comparaison booleene
-                        mips += "la $v0, " + exp.toMIPS() + "\n";
-                    } else { //comparaison entière
-                        mips += "li $v0, " + exp.toMIPS();
-                    }
+                    mips += "li $v0, " + exp.toMIPS();
                 } else {
-                    if (exp.getType().equals("booleen")) { //comparaison booleene
-                    }
                     mips += "lw $v0, " + exp.toMIPS() + "\n";
                 }
             } else { //fonction
                 mips += exp.toMIPS();
             }
-            mips += "move $a0, $v0\n";
+            if (exp.getResultType().equals("booleen")){
+                sys = 4; //Syscall pour afficher une chaine de caractères
+                mips += "move $t0, $v0\n";
+                mips += convBooleen();
+            } else {
+                mips += "move $a0, $v0\n";
+            }
         }
 
         //Affichage de l'expression
@@ -97,6 +94,16 @@ public class Ecrire extends Instruction {
         mips += "syscall\n" ;
 
         return mips ;
+    }
+
+    private String convBooleen(){
+        String mips = "beq $s0, $t0, Sinon" + exp.getNoLigne() + "\n"; //$s0 = faux
+        mips += "la $a0, vrai\n";
+        mips += "b FinSi" + exp.getNoLigne() + "\n";
+        mips += "Sinon" + exp.getNoLigne() + ":" + "\n";
+        mips += "la $a0, faux\n";
+        mips += "FinSi" + exp.getNoLigne() + ":" + "\n";
+        return mips;
     }
 
 }

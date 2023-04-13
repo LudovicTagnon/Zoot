@@ -53,11 +53,11 @@ public class Inf extends Binaire{
 
         mips += "#Dépile \nadd $sp,$sp,4\nlw $t8,($sp)\n";
         mips += "#Branch if less than\n";
-        mips += "ble $v0,$t8,si_"+label+"\n";
-        mips += "la $v0, vrai\n";
+        mips += "ble $t8,$v0,si_"+label+"\n";
+        mips += "li $v0, 0\n";
         mips += "j end_"+label+"\n";
         mips += "si_" +label+":\n";
-        mips += "la $v0, faux\n";
+        mips += "li $v0, 1\n";
         mips += "end_"+label+":\n";
         return mips;
     }
