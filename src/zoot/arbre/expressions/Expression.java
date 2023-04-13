@@ -10,6 +10,10 @@ public abstract class Expression extends ArbreAbstrait {
 
     public abstract String getType();
 
+    public String getResultType(){
+        return getType();
+    }
+
     public boolean isConstante(){
         return false;
     }
@@ -18,7 +22,7 @@ public abstract class Expression extends ArbreAbstrait {
         return false;
     }
 
-    public boolean isComparaison(){
+    public boolean isOperator(){
         return false;
     }
 

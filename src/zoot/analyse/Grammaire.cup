@@ -68,7 +68,7 @@ non terminal Instruction INST ;
 non terminal Expression EXP ;
 non terminal String TYPE ;
 
-precedence left OU;
+precedence left OU ;
 precedence left ET;
 precedence left DIFFERENT;
 precedence left EGALITE;
@@ -148,10 +148,10 @@ EXP    ::=     CSTENTIERE:c
                 {: RESULT = new Egal(eg, ed, edleft+1, false); :} //TODO: Classe Egal ?
         |
                 EXP:eg ET EXP:ed
-                {:  :} //TODO: Classe Et ?
+                {: RESULT = new Et(eg, ed, edleft+1, true); :} //TODO: Classe Et ?
         |
                 EXP:eg OU EXP:ed
-                {: :} //TODO: Classe Ou ?
+                {: RESULT = new Et(eg, ed, edleft+1, false); :} //TODO: Classe Ou ?
                 ;
 
 TYPE    ::=     BOOLEEN

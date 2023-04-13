@@ -14,7 +14,7 @@ public abstract class Binaire extends Expression {
     }
 
     @Override
-    public abstract void verifier();
+    public abstract void verifier() ;
 
     @Override
     public abstract String toMIPS();

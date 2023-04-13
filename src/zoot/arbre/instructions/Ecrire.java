@@ -21,7 +21,7 @@ public class Ecrire extends Instruction {
         String mips = "\n#Ecrire " + exp.getNom() + "\n";
         int sys = 1; //Syscall pour afficher un entier
 
-        if (!exp.isComparaison()) { //Si l'expression n'est pas une comparaison
+        if (!exp.isOperator()) { //Si l'expression n'est pas une comparaison
             if (!exp.isFonc()) { //Si l'expression n'est pas une fonction
                 if (exp.isConstante()) { //Si l'expression est une constante
                     if (exp.getType().equals("booleen")) { //constante booleenne
@@ -67,7 +67,9 @@ public class Ecrire extends Instruction {
                 }
             }
         } else{ //expression est une comparaison
-            sys = 4; //Syscall pour afficher une chaine de caractères
+            if (exp.getResultType().equals("booleen")){
+                sys = 4; //Syscall pour afficher une chaine de caractères
+            }
             if (!exp.isFonc()) {
                 if (exp.isConstante()) {
                     if (exp.getType().equals("booleen")) { //comparaison booleene

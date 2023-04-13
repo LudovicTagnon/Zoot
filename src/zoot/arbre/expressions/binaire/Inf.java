@@ -78,7 +78,12 @@ public class Inf extends Binaire{
     }
 
     @Override
-    public boolean isComparaison() {
+    public boolean isOperator() {
         return true;
+    }
+
+    @Override
+    public String getResultType() {
+        return "booleen";
     }
 }

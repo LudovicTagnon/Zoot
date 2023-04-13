@@ -68,4 +68,9 @@ public class Mult extends Binaire{
     public boolean isFonc() {
         return expGauche.isFonc();
     }
+
+    @Override
+    public boolean isOperator() {
+        return true;
+    }
 }
