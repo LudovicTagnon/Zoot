@@ -113,10 +113,10 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
                 {: RESULT = new Retourne(e, eleft+1); :}
         |
                 REPETER LINST:li JUSQUA EXP:e FINREPETER
-                {: :} //TODO: Classe Repeter
+                {: RESULT = new Repeter(e,li,eleft+1); :}
         |
                 SI EXP:e ALORS LINST:li FINSI
-                {:RESULT = new Si(e,li,null,eleft+1); :} //pas de sinon
+                {: RESULT = new Si(e,li,null,eleft+1); :} //pas de sinon
        |
                 SI EXP:e ALORS LINST:li SINON LINST:ln FINSI
                 {: RESULT = new Si(e,li,ln,eleft+1); :}
