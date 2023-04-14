@@ -116,7 +116,7 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
                 {: :} //TODO: Classe Repeter
         |
                 SI EXP:e ALORS LINST:li FINSI
-                {: :} //TODO: Classe Si
+                {:RESULT = new Si(e,li,eleft+1); :}
                 ;
 
 EXP    ::=     CSTENTIERE:c
