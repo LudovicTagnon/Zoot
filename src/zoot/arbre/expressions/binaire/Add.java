@@ -35,7 +35,7 @@ public class Add extends Binaire{
     @Override
     public String toMIPS() {
         String mips = expGauche.toMIPS();
-        mips += "#Empile \nsw $v0,($sp) \nadd $sp,$sp,-4\n";
+        mips += "#Empile pour add\nsw $v0,($sp) \nadd $sp,$sp,-4\n";
 
         if (!expDroite.isFonc()) {
             if (expDroite.isConstante()) { //si exp est une constante

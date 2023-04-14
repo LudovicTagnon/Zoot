@@ -62,6 +62,7 @@ public class Fonction extends ArbreAbstrait{
             mips += "lw $v0, 4($sp)\n";
             mips += "addi $sp,$sp, 4\n";
             mips += "sw $v0, " + bornInf + "($s7)\n";
+            bornInf += 4;
         }
 
         mips += instruction.toMIPS();

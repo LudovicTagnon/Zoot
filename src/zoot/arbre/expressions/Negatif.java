@@ -27,7 +27,7 @@ public class Negatif extends Expression{
     @Override
     public String toMIPS() {
         String mips = exp.toMIPS();
-        mips += "#Empile \nsw $v0,($sp) \nadd $sp,$sp,-4\n";
+        mips += "#Empile pour negatif\nsw $v0,($sp) \nadd $sp,$sp,-4\n";
         mips += "#Dépile \nadd $sp,$sp,4\nlw $t8,($sp)\n";
         mips += "li $v0, -1\n";
         mips += "mul $v0, $t8, $v0\nmflo $v0\n";

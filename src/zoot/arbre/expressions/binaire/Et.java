@@ -37,7 +37,7 @@ public class Et extends Binaire{
     @Override
     public String toMIPS() {
         String mips = expGauche.toMIPS();
-        mips += "#Empile \nsw $v0,($sp) \nadd $sp,$sp,-4\n";
+        mips += "#Empile pour et\nsw $v0,($sp) \nadd $sp,$sp,-4\n";
 
 
         if (!expDroite.isFonc()) {

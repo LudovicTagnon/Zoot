@@ -59,9 +59,45 @@ public class Si extends Instruction{
         mips += "beq $s0,$v0,"+label+"\n"; //si $v0 == faux
         mips += instruction.toMIPS(); //code si $v0 vrai, donc on rentre dans le si
         mips += "j end_"+label+"\n";
+        mips += "#else = not("+condition.getNom()+")\n";
         mips += label+":\n"; //si vrai, donc on ne rentre pas dans si
         mips += sinon.toMIPS();
         mips += "end_"+label+":\n";
         return mips;
+    }
+
+    @Override
+    public boolean isReturn() {
+        boolean returnSi = false;
+        boolean returnSinon = false;
+        boolean result = false;
+
+        BlocDInstructions inst = (BlocDInstructions) instruction;
+        for (ArbreAbstrait i : inst.getInstructions()){
+            if (i.isReturn()){
+                returnSi = true;
+            }
+        }
+
+        BlocDInstructions inst2 = (BlocDInstructions) sinon;
+        for (ArbreAbstrait i2 : inst2.getInstructions()){
+            if (i2.isReturn()){
+                returnSinon = true;
+            }
+        }
+
+        if (inst.getInstructions().size() != 0){
+            result = returnSi;
+        }
+
+        if (inst2.getInstructions().size() != 0){
+            result = returnSinon;
+        }
+
+        if (inst.getInstructions().size() != 0 && inst2.getInstructions().size() != 0 ){
+            result = returnSi && returnSinon;
+        }
+
+        return result;
     }
 }
