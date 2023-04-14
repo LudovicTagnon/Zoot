@@ -1,6 +1,7 @@
 package zoot.arbre.instructions;
 
 import zoot.arbre.ArbreAbstrait;
+import zoot.arbre.BlocDInstructions;
 import zoot.arbre.TDS;
 import zoot.arbre.expressions.Expression;
 import zoot.exceptions.CollectExcept;
@@ -10,11 +11,21 @@ public class Si extends Instruction{
 
     private Expression condition;
     private ArbreAbstrait instruction;
+    private ArbreAbstrait sinon;
     private final String label = "condi" + TDS.getInstance().getCpt();
-    public Si(Expression e, ArbreAbstrait a, int n) {
+    public Si(Expression e, ArbreAbstrait a, ArbreAbstrait b, int n) {
         super(n);
         condition = e;
-        instruction = a;
+        if (a != null) {
+            instruction = a;
+        } else {
+            instruction = new BlocDInstructions(0); //vide
+        }
+        if (b != null) {
+            sinon = b;
+        } else {
+            sinon = new BlocDInstructions(0); //vide
+        }
     }
 
     @Override
@@ -25,6 +36,7 @@ public class Si extends Instruction{
                 throw new TypeIncompatibleException(condition, noLigne);
             } else {
                 instruction.verifier();
+                sinon.verifier();
             }
         } catch (TypeIncompatibleException e) {
             CollectExcept.getInstance().addException(e);
@@ -33,7 +45,7 @@ public class Si extends Instruction{
 
     @Override
     public String toMIPS() {
-        String mips = "#if "+condition.toMIPS();
+        String mips = "#if "+condition.getNom()+"\n";
         if (!condition.isFonc()) {
             if (condition.isConstante()) { //si exp est une constante
                 mips += "li "; //load
@@ -48,6 +60,7 @@ public class Si extends Instruction{
         mips += instruction.toMIPS(); //code si $v0 vrai, donc on rentre dans le si
         mips += "j end_"+label+"\n";
         mips += label+":\n"; //si vrai, donc on ne rentre pas dans si
+        mips += sinon.toMIPS();
         mips += "end_"+label+":\n";
         return mips;
     }

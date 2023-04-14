@@ -58,7 +58,7 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    DEBUT, FIN, POINTVIRGULE, VIRGULE, ECRIRE, VARIABLES, EGALE, PARENTHESEOUVRANTE, PARENTHESEFERMANTE, FONCTIONS, RETOURNE, REPETER, JUSQUA, FINREPETER, SI, ALORS, FINSI, PLUS, FOIS, INFERIEUR, EGALITE, DIFFERENT, ET, OU, NON, MOINS;
+terminal Symbol    DEBUT, FIN, POINTVIRGULE, VIRGULE, ECRIRE, VARIABLES, EGALE, PARENTHESEOUVRANTE, PARENTHESEFERMANTE, FONCTIONS, RETOURNE, REPETER, JUSQUA, FINREPETER, SI, ALORS, SINON, FINSI, PLUS, FOIS, INFERIEUR, EGALITE, DIFFERENT, ET, OU, NON, MOINS;
 terminal String    CSTENTIERE, CSTBOOLEENNE, BOOLEEN,ENTIER, ID;
    
 /* Non terminals used in the grammar section.  */
@@ -116,7 +116,16 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
                 {: :} //TODO: Classe Repeter
         |
                 SI EXP:e ALORS LINST:li FINSI
-                {:RESULT = new Si(e,li,eleft+1); :}
+                {:RESULT = new Si(e,li,null,eleft+1); :} //pas de sinon
+       |
+                SI EXP:e ALORS LINST:li SINON LINST:ln FINSI
+                {: RESULT = new Si(e,li,ln,eleft+1); :}
+       |
+                SI EXP:e ALORS FINSI
+                {: RESULT = new Si(e,null,null,eleft+1); :}
+       |
+                SI EXP:e ALORS SINON LINST:ln FINSI
+                {: RESULT = new Si(e,null,ln,eleft+1); :}
                 ;
 
 EXP    ::=     CSTENTIERE:c

@@ -67,6 +67,8 @@ variable = [a-zA-Z][a-zA-z0-9]* //Vérifier si la regex correspond à l'enoncé
 
 "si"                    { return symbol(CodesLexicaux.SI); }
 
+"sinon"                 { return symbol(CodesLexicaux.SINON); }
+
 "alors"                 { return symbol(CodesLexicaux.ALORS); }
 
 "finsi"                 { return symbol(CodesLexicaux.FINSI); }
