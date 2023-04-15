@@ -24,6 +24,9 @@ public class AppelFonc extends Expression{
     @Override
     public void verifier() {
         s = (SymboleFct) TDS.getInstance().identifier(e, params.size());
+        for (Expression param : params) {
+            param.verifier();
+        }
     }
 
     @Override
