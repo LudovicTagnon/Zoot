@@ -1,0 +1,327 @@
+@startuml
+
+scale 1000 width
+scale 500 height
+
+' Analyse package
+package "analyse" {
+    class AnalyseurLexical {
+    }
+    class AnalyseurSyntaxique {
+    }
+    class CodesLexicaux {
+    }
+}
+
+' Arbre package
+package "arbre" {
+        abstract class ArbreAbstrait {
+        -noLigne: int
+        +getNoLigne(): int
+        +verifier(): void
+        +toMIPS(): String
+        +isReturn(): boolean
+    }
+    class BlocDInstructions {
+        -programme: ArrayList<ArbreAbstrait>
+        +ajouter(i: ArbreAbstrait): void
+        +getInstructions(): ArrayList<ArbreAbstrait>
+        +toString(): String
+    }
+    class SymboleFct {
+        -nbParams: int
+        +SymboleFct(type: String)
+        +isParametre(): boolean
+        +getNbParams(): int
+        +setNbParams(nbParams: int): void
+    }
+    class Symbole {
+        -decalage: int
+        -numBloc: int
+        -type: String
+        +Symbole(t: String, b: int)
+        +isParametre(): boolean
+        +getDecalage(): int
+        +setDecalage(decalage: int): void
+        +getType(): String
+        +setType(type: String): void
+        +getNumBloc(): int
+        +getNbParams(): int
+    }
+    class TDS {
+        -instance: TDS
+        -actuel: int
+        -bloc: ArrayList<HashMap<Entree, Symbole>>
+        -cpt: int
+        -TDS(): void
+        +getInstance(): TDS
+        +ajouter(e: Entree, s: Symbole): void
+        +identifier(e: Entree): Symbole
+        +identifier(e: EntreeFonction, nbPar: int): Symbole
+        +getTailleVariable(): int
+        +entreebloc(): void
+        +sortieBloc(): void
+        +getBlocActuel(): int
+        +setBlocActuel(i: int): void
+        +getNbrPar(): int
+        +getCpt(): int
+        +toString(): String
+    }
+
+    ' Declarations package
+    package "declarations" {
+        class EntreeFonction extends Entree {
+            - nbParam: int
+            + EntreeFonction(nom: String, nbParam: int, ligne: int)
+            + getNbParam(): int
+            }
+        abstract class Entree {
+            - nom: String
+            - noLigne: int
+            + Entree(nom: String, ligne: int)
+            + getNom(): String
+            + getNoLigne(): int
+            }
+        class EntreeVariable extends Entree {
+            + EntreeVariable(nom: String, ligne: int)
+        }
+        class Fonction extends ArbreAbstrait {
+            - nom: String
+            - instruction: ArbreAbstrait
+            - label: String
+            - params: HashMap<Entree, Symbole>
+            - bloc: int
+            + Fonction(idf: String, inst: ArbreAbstrait, b: int, n: int)
+            + verifier(): void
+            + toMIPS(): String
+            + getNom(): String
+            + getLabel(): String
+            + getNbParams(): int
+            + getBloc(): int
+        }
+        class LFCT {
+            - fonctions: ArrayList<Fonction>
+            - debut: boolean
+            - params: HashMap<Entree, Symbole>
+            - par_apl: ArrayList<Expression>
+            + addFonction(f: Fonction): void
+            + stockerParams(entree: Entree, sym: Symbole): void
+            + stockerParamsApl(exp: Expression): void
+            + destockParams(): HashMap<Entree, Symbole>
+            + destockParamsApl(): ArrayList<Expression>
+            + getInstance(): LFCT
+            + setDebut(debut: boolean): void
+            + getDebut(): boolean
+            + getIterator(): Iterator<Fonction>
+        }
+    }
+
+    ' Expressions package
+    package "expressions" {
+        class AppelFonc {
+            -e: EntreeFonction
+            -s: SymboleFct
+            -params: ArrayList<Expression>
+            +getNom(): String
+            +getType(): String
+            +isFonc(): boolean
+        }
+        class ConstanteBooleenne {
+            +getType(): String
+            +isConstante(): boolean
+        }
+        class ConstanteEntiere {
+            +getType(): String
+            +isConstante(): boolean
+        }
+        abstract class Constante {
+            -cste: String
+            +getNom(): String
+            +toString(): String
+        }
+        abstract class Expression {
+            -noLigne: int
+            +getNom(): String
+            +getType(): String
+            +isConstante(): boolean
+            +isFonc(): boolean
+            +isOperator(): boolean
+            +verifier(): void
+            +toMIPS(): String
+        }
+        class Idf {
+            -e: Entree
+            -s: Symbole
+            +getType(): String
+            +getNom(): String
+        }
+        class Negatif {
+            -exp: Expression
+            +getNom(): String
+            +getType(): String
+            +isConstante(): boolean
+            +isFonc(): boolean
+            +isOperator(): boolean
+        }
+        class Not {
+            -exp: Expression
+            -label: String
+            +getNom(): String
+            +getType(): String
+            +isConstante(): boolean
+            +isFonc(): boolean
+            +isOperator(): boolean
+        }
+        class Parenthese {
+            -exp: Expression
+            +getNom(): String
+            +getType(): String
+            +isConstante(): boolean
+            +isFonc(): boolean
+            +isOperator(): boolean
+        }
+
+        ' Binaire package
+        package "binaire" {
+            class Add {
+                +getNom(): String
+                +verifier(): void
+                +toMIPS(): String
+                +getType(): String
+                +isConstante(): boolean
+                +isFonc(): boolean
+                +isOperator(): boolean
+            }
+            abstract class Binaire {
+                -expGauche: Expression
+                -expDroite: Expression
+                -noLigne: int
+                +Binaire(Expression expGauche, Expression expDroite, int noLigne): void
+            }
+            class Egal {
+                -label: String
+                -isEqual: boolean
+                +getNom(): String
+                +verifier(): void
+                +toMIPS(): String
+                +getType(): String
+                +isConstante(): boolean
+                +isFonc(): boolean
+                +isOperator(): boolean
+                +getResultType(): String
+            }
+            class Et {
+                -operator: String
+                +getNom(): String
+                +verifier(): void
+                +toMIPS(): String
+                +getType(): String
+                +isConstante(): boolean
+                +isFonc(): boolean
+                +isOperator(): boolean
+            }
+            class Inf {
+                -label: String
+                +getNom(): String
+                +verifier(): void
+                +toMIPS(): String
+                +getType(): String
+                +isConstante(): boolean
+                +isFonc(): boolean
+                +isOperator(): boolean
+                +getResultType(): String
+            }
+            class Mult {
+                +getNom(): String
+                +verifier(): void
+                +toMIPS(): String
+                +getType(): String
+                +isConstante(): boolean
+                +isFonc(): boolean
+                +isOperator(): boolean
+            }
+
+        }
+    }
+
+    ' Instructions package
+    package "instructions" {
+        class Affectation {
+            -variable: Idf
+            -exp: Expression
+            +Affectation(n: int, idf: Idf, e: Expression)
+            +verifier(): void
+            +toMIPS(): String
+        }
+        class Ecrire {
+            -exp: Expression
+            +Ecrire(e: Expression, n: int)
+            +verifier(): void
+            +toMIPS(): String
+            -convBooleen(): String
+        }
+        class Instruction {
+            #Instruction(n: int)
+        }
+        class Repeter {
+            -repetition: Expression
+            -instruction: ArbreAbstrait
+            -label: String
+            +Repeter(e: Expression, a: ArbreAbstrait, n: int)
+            +verifier(): void
+            +toMIPS(): String
+        }
+        class Retourne {
+            -exp: Expression
+            +Retourne(e: Expression, n: int)
+            +verifier(): void
+            +toMIPS(): String
+            +isReturn(): boolean
+        }
+        class Si {
+            -condition: Expression
+            -instruction: ArbreAbstrait
+            -sinon: ArbreAbstrait
+            -label: String
+            +Si(e: Expression, a: ArbreAbstrait, b: ArbreAbstrait, n: int)
+            +verifier(): void
+            +toMIPS(): String
+            +isReturn(): boolean
+        }
+    }
+}
+
+' Root directory
+class Zoot {
+}
+
+' Add inheritance and relations here
+ArbreAbstrait <|-- BlocDInstructions
+ArbreAbstrait <|-- Expression
+ArbreAbstrait <|-- Instruction
+
+Expression <|-- Constante
+Expression <|-- Binaire
+Expression <|-- AppelFonc
+Expression <|-- Idf
+Expression <|-- Negatif
+Expression <|-- Not
+Expression <|-- Parenthese
+
+Binaire <|-- Add
+Binaire <|-- Egal
+Binaire <|-- Et
+Binaire <|-- Inf
+Binaire <|-- Mult
+
+Constante <|-- ConstanteBooleenne
+Constante <|-- ConstanteEntiere
+
+Instruction <|-- Affectation
+Instruction <|-- Ecrire
+Instruction <|-- Repeter
+Instruction <|-- Retourne
+Instruction <|-- Si
+
+
+@enduml

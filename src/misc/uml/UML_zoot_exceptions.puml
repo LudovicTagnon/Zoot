@@ -1,0 +1,55 @@
+@startuml
+
+scale 1000 width
+scale 500 height
+
+
+
+' Exceptions package
+package "exceptions" {
+    abstract class AnalyseException {
+        -AnalyseException(m: String)
+    }
+    class AnalyseLexicaleException {
+        +AnalyseLexicaleException(ligne: int, colonne: int, m: String)
+    }
+    class AnalyseSyntaxiqueException {
+        +AnalyseSyntaxiqueException(m: String)
+    }
+    class CollectExcept {
+        -exceptions: ArrayList<AnalyseException>
+        +getInstance(): CollectExcept
+        +addException(ex: AnalyseException): void
+        +getNbExceptions(): int
+        +getIterator(): Iterator<AnalyseException>
+    }
+    class DoubleDeclarationException {
+        +DoubleDeclarationException(e: Entree)
+    }
+    class NonDeclarerException {
+        +NonDeclarerException(e: Entree)
+    }
+    class ReturnException {
+        +ReturnException(numLigne: int, message: String)
+    }
+    class TypeIncompatibleException {
+        +TypeIncompatibleException(idf: Idf, exp: Expression, ligne: int)
+        +TypeIncompatibleException(eg: Expression, ed: Expression, ligne: int)
+        +TypeIncompatibleException(e: Expression, ligne: int)
+    }
+}
+
+' Root directory
+class Zoot {
+}
+
+' Add inheritance and relations here
+AnalyseException <|-- AnalyseLexicaleException
+AnalyseException <|-- AnalyseSyntaxiqueException
+AnalyseException <|-- CollectExcept
+AnalyseException <|-- DoubleDeclarationException
+AnalyseException <|-- NonDeclarerException
+AnalyseException <|-- ReturnException
+AnalyseException <|-- TypeIncompatibleException
+
+@enduml
